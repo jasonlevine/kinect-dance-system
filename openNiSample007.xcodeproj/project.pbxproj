@@ -105,6 +105,9 @@
 		9035C99D189F5DCB00C7DC55 /* MSACoreGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C99A189F5DCB00C7DC55 /* MSACoreGL.cpp */; };
 		9035C9A8189F5E2300C7DC55 /* FluidParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C9A4189F5E2300C7DC55 /* FluidParticle.cpp */; };
 		9035C9A9189F5E2300C7DC55 /* FluidParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C9A6189F5E2300C7DC55 /* FluidParticleSystem.cpp */; };
+		90B2758A18A0385400494D40 /* particleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B2758818A0385400494D40 /* particleScene.cpp */; };
+		90B2759518A0395100494D40 /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B2759118A0395100494D40 /* particle.cpp */; };
+		90B2759618A0395100494D40 /* particleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B2759318A0395100494D40 /* particleSystem.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -565,6 +568,12 @@
 		9035C9A5189F5E2300C7DC55 /* FluidParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FluidParticle.h; path = "src-UserAndCloud-Simple/FluidParticle.h"; sourceTree = SOURCE_ROOT; };
 		9035C9A6189F5E2300C7DC55 /* FluidParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FluidParticleSystem.cpp; path = "src-UserAndCloud-Simple/FluidParticleSystem.cpp"; sourceTree = SOURCE_ROOT; };
 		9035C9A7189F5E2300C7DC55 /* FluidParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FluidParticleSystem.h; path = "src-UserAndCloud-Simple/FluidParticleSystem.h"; sourceTree = SOURCE_ROOT; };
+		90B2758818A0385400494D40 /* particleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = particleScene.cpp; sourceTree = SOURCE_ROOT; };
+		90B2758918A0385400494D40 /* particleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = particleScene.h; sourceTree = SOURCE_ROOT; };
+		90B2759118A0395100494D40 /* particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = particle.cpp; path = "src-UserAndCloud-Simple/particle.cpp"; sourceTree = SOURCE_ROOT; };
+		90B2759218A0395100494D40 /* particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = particle.h; path = "src-UserAndCloud-Simple/particle.h"; sourceTree = SOURCE_ROOT; };
+		90B2759318A0395100494D40 /* particleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = particleSystem.cpp; path = "src-UserAndCloud-Simple/particleSystem.cpp"; sourceTree = SOURCE_ROOT; };
+		90B2759418A0395100494D40 /* particleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = particleSystem.h; path = "src-UserAndCloud-Simple/particleSystem.h"; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -1395,6 +1404,7 @@
 				9035C8E1189F47C000C7DC55 /* scene.h */,
 				90B2758618A037CC00494D40 /* laserScene */,
 				90B2758718A037D700494D40 /* smokeScene */,
+				90B2759818A0396600494D40 /* particleScene */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -1516,6 +1526,27 @@
 				9035C9AA189F5E2A00C7DC55 /* fluid particles */,
 			);
 			name = smokeScene;
+			sourceTree = "<group>";
+		};
+		90B2759718A0395700494D40 /* particles */ = {
+			isa = PBXGroup;
+			children = (
+				90B2759118A0395100494D40 /* particle.cpp */,
+				90B2759218A0395100494D40 /* particle.h */,
+				90B2759318A0395100494D40 /* particleSystem.cpp */,
+				90B2759418A0395100494D40 /* particleSystem.h */,
+			);
+			name = particles;
+			sourceTree = "<group>";
+		};
+		90B2759818A0396600494D40 /* particleScene */ = {
+			isa = PBXGroup;
+			children = (
+				90B2758818A0385400494D40 /* particleScene.cpp */,
+				90B2758918A0385400494D40 /* particleScene.h */,
+				90B2759718A0395700494D40 /* particles */,
+			);
+			name = particleScene;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
@@ -1709,6 +1740,7 @@
 				9035C9A8189F5E2300C7DC55 /* FluidParticle.cpp in Sources */,
 				9035C947189F48C200C7DC55 /* ofxUIBaseDraws.cpp in Sources */,
 				9035C960189F48C200C7DC55 /* ofxUIRadio.cpp in Sources */,
+				90B2758A18A0385400494D40 /* particleScene.cpp in Sources */,
 				9035C96B189F48C200C7DC55 /* ofxUITextArea.cpp in Sources */,
 				9035C981189F4BFD00C7DC55 /* ofxXmlSettings.cpp in Sources */,
 				9035C846189EFAF800C7DC55 /* ObjectFinder.cpp in Sources */,
@@ -1724,6 +1756,7 @@
 				9035C7EF189EEC7B00C7DC55 /* testApp.cpp in Sources */,
 				9035C95D189F48C200C7DC55 /* ofxUIMultiImageButton.cpp in Sources */,
 				9035C8DD189F26A200C7DC55 /* flowManager.cpp in Sources */,
+				90B2759518A0395100494D40 /* particle.cpp in Sources */,
 				9035C845189EFAF800C7DC55 /* Helpers.cpp in Sources */,
 				9035C949189F48C200C7DC55 /* ofxUIButton.cpp in Sources */,
 				9035C94D189F48C200C7DC55 /* ofxUIDragableLabelButton.cpp in Sources */,
@@ -1737,6 +1770,7 @@
 				9035C847189EFAF800C7DC55 /* RunningBackground.cpp in Sources */,
 				9035C966189F48C200C7DC55 /* ofxUISortableList.cpp in Sources */,
 				9035C94F189F48C200C7DC55 /* ofxUIEventArgs.cpp in Sources */,
+				90B2759618A0395100494D40 /* particleSystem.cpp in Sources */,
 				9035C963189F48C200C7DC55 /* ofxUIRotarySlider.cpp in Sources */,
 				9035C982189F4BFD00C7DC55 /* tinyxml.cpp in Sources */,
 				9035C95C189F48C200C7DC55 /* ofxUIMovingGraph.cpp in Sources */,

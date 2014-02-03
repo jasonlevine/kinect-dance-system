@@ -84,7 +84,7 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
 	pMouse = msa::getWindowCenter();
 	resizeFluid			= true;
 	
-	ofSetBackgroundAuto(false);
+
 }
 
 
@@ -148,7 +148,10 @@ void smokeScene::update(int width, int height){
 }
 
 void smokeScene::draw(int x, int y, int width, int height, bool drawToScreen){
-	
+	ofPushStyle();
+    ofSetBackgroundAuto(false);
+    ofEnableAlphaBlending();
+    
     if(drawFluid) {
         ofClear(0);
 		glColor3f(1, 1, 1);
@@ -162,8 +165,8 @@ void smokeScene::draw(int x, int y, int width, int height, bool drawToScreen){
 		particleSystem.updateAndDraw(fluidSolver, ofGetWindowSize(), drawFluid, particleColor);
     }
 	
-    //	ofDrawBitmapString(sz, 50, 50);
-    
+    ofSetBackgroundAuto(true);
+    ofPopStyle();
 }
 
 

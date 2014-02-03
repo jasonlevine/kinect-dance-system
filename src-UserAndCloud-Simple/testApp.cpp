@@ -18,10 +18,15 @@ void testApp::setup() {
     smoke->setup(&oni, &flow);
     scenes.push_back(smoke);
     
-    currentScene = 0;
+    particleScene * particles = new particleScene;
+    particles->setup(&oni, &flow);
+    scenes.push_back(particles);
+    
+    currentScene = 2;
+    numScenes = 3;
     
     bDebug = false;
-    bCalibrate = true;
+    bCalibrate = false;
     
     ofBackground(25);
     ofEnableAntiAliasing();
@@ -38,7 +43,7 @@ void testApp::update(){
         }
     }
     
-    scenes[currentScene]->update(0,0);
+    scenes[currentScene]->update(ofGetWidth(),ofGetHeight());
 
 }
 
@@ -66,8 +71,11 @@ void testApp::keyPressed(int key){
     
     switch (key) {
         case 'd':
-            bDebug = true;
+        {
+            particleScene * myParticles = static_cast<particleScene*>(scenes[2]);
+            myParticles->bDebug = true;
             break;
+        }
             
         case 'c':
             bCalibrate = !bCalibrate;
@@ -79,7 +87,8 @@ void testApp::keyPressed(int key){
             
         case 's':
             currentScene++;
-            currentScene%=2;
+            currentScene%=numScenes;
+            cout << "currentScene = " << currentScene << endl;
             break;
     }
 }

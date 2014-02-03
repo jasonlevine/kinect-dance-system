@@ -8,6 +8,7 @@
 
 #include "laserScene.h"
 #include "smokeScene.h"
+#include "particleScene.h"
 
 class testApp : public ofBaseApp{
 
@@ -33,6 +34,7 @@ public:
     bool bCalibrate;
     
     int currentScene;
+    int numScenes;
     vector<scene*> scenes;
 };
 
