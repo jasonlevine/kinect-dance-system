@@ -19,6 +19,7 @@ public:
 	ofxCv::FlowPyrLK pyrLk;
     
     vector<ofPoint> features;
+    vector<ofPoint> current;
     vector<ofVec2f> motion;
 
 };

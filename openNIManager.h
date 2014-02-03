@@ -5,6 +5,7 @@
 //  Created by Jason Levine on 2014-02-02.
 //
 //
+#pragma once
 
 #include "ofxOpenNI.h"
 #include "ofxCvGrayscaleImage.h"

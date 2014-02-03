@@ -5,15 +5,19 @@ using namespace cv;
 
 //--------------------------------------------------------------
 void testApp::setup() {
-    ofSetFrameRate(30);
+//    ofSetFrameRate(30);
     
     oni.setup();
     flow.setup();
     
+    lasers.setup(&oni, &flow);
     
     bDebug = false;
+    bCalibrate = true;
     
     ofBackground(25);
+    
+
 }
 
 //--------------------------------------------------------------
@@ -30,9 +34,14 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	oni.draw();
-    ofSetColor(255);
-    flow.draw(0,480,640,480);
+	if (bCalibrate) {
+        oni.draw();
+        ofSetColor(255);
+        flow.draw(0,480,640,480);
+    }
+    else {
+        lasers.draw(0, 0, ofGetWidth(), ofGetHeight(), true);
+    }
     
 }
 
@@ -48,6 +57,10 @@ void testApp::keyPressed(int key){
     switch (key) {
         case 'd':
             bDebug = true;
+            break;
+            
+        case 'c':
+            bCalibrate = !bCalibrate;
             break;
     }
 }

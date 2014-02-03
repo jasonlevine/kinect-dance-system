@@ -23,6 +23,7 @@ void flowManager::setup() {
     pyrLk.calcOpticalFlow(firstFrame, firstFrame);
     
     features.clear();
+    current.clear();
     motion.clear();
 }
 
@@ -31,10 +32,12 @@ void flowManager::update(ofPixels &maskPix){
     
     if (ofGetFrameNum() % 60 == 0) pyrLk.resetFeaturesToTrack();
     
-    features = pyrLk.getFeatures();
-    motion = pyrLk.getMotion();
-    
     pyrLk.calcOpticalFlow(maskPix);
+    
+    features = pyrLk.getFeatures();
+    current = pyrLk.getCurrent();
+    motion = pyrLk.getMotion();
+
     
 }
 
