@@ -43,6 +43,8 @@ public:
 	ParticleSystem          particleSystem;
 	
 	ofVec2f                 pMouse;
+    
+    float threshold;
 
     
 };

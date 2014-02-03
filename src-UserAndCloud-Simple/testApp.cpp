@@ -12,9 +12,13 @@ void testApp::setup() {
     
     lasers = new laserScene;
     lasers->setup(&oni, &flow);
+    scenes.push_back(lasers);
     
     smoke = new smokeScene;
     smoke->setup(&oni, &flow);
+    scenes.push_back(smoke);
+    
+    currentScene = 0;
     
     bDebug = false;
     bCalibrate = true;
@@ -34,7 +38,7 @@ void testApp::update(){
         }
     }
     
-    smoke->update(0,0);
+    scenes[currentScene]->update(0,0);
 
 }
 
@@ -46,7 +50,7 @@ void testApp::draw(){
         flow.draw(0,480,640,480);
     }
     else {
-        smoke->draw(0, 0, ofGetWidth(), ofGetHeight(), true);
+        scenes[currentScene]->draw(0, 0, ofGetWidth(), ofGetHeight(), true);
     }
     
 }
@@ -70,7 +74,12 @@ void testApp::keyPressed(int key){
             break;
             
         case 'g':
-            smoke->toggleGUI();
+            scenes[currentScene]->toggleGUI();
+            break;
+            
+        case 's':
+            currentScene++;
+            currentScene%=2;
             break;
     }
 }

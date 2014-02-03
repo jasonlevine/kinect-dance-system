@@ -27,6 +27,8 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
     colorMult           = 50;
     velocityMult        = 34;
 	
+    threshold           = 0;
+    
 	ofSetFrameRate(60);
 	ofBackground(0, 0, 0);
 
@@ -43,6 +45,7 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
     gui->addFPSSlider("FPS SLIDER", length-xInit, dim*.25, 60);
     
     gui->addSpacer(length-xInit, 1);
+    gui->addSlider("threshold", 0, 100, &threshold);
 	gui->addIntSlider("fluidCellsX", 20, 400, &fluidCellsX);
 	gui->addButton("resizeFluid", &resizeFluid);
     gui->addSlider("colorMult", 0, 100, &colorMult);
@@ -116,11 +119,28 @@ void smokeScene::update(int width, int height){
 		resizeFluid = false;
 	}
     
+    for (int i = 0; i < flow->current.size(); i++) {
+        if (flow->motion[i + flow->motion.size()/2].lengthSquared() > threshold) {
+            
+            ofVec2f featNorm;
+            featNorm.x = flow->features[i].x / 320.;
+            featNorm.y = flow->features[i].y / 240.;
+            
+            ofVec2f featVel;
+            featVel.x = flow->motion[i + flow->motion.size()/2].x / 320.;
+            featVel.y = flow->motion[i + flow->motion.size()/2].y / 240.;
+            
+            addToFluid(featNorm, featVel, true, true);
+        }
+    }
+
+    
 	fluidSolver.update();
 }
 
 void smokeScene::draw(int x, int y, int width, int height, bool drawToScreen){
-	if(drawFluid) {
+	
+    if(drawFluid) {
         ofClear(0);
 		glColor3f(1, 1, 1);
 		fluidDrawer.draw(0, 0, ofGetWidth(), ofGetHeight());
@@ -136,10 +156,10 @@ void smokeScene::draw(int x, int y, int width, int height, bool drawToScreen){
 }
 //--------------------------------------------------------------
 void smokeScene::mouseMoved(int x, int y){
-	ofVec2f eventPos = ofVec2f(x, y);
-	ofVec2f mouseNorm = ofVec2f(eventPos) / ofGetWindowSize();
-	ofVec2f mouseVel = ofVec2f(eventPos - pMouse) / ofGetWindowSize();
-	addToFluid(mouseNorm, mouseVel, true, true);
-	pMouse = eventPos;
+//	ofVec2f eventPos = ofVec2f(x, y);
+//	ofVec2f mouseNorm = ofVec2f(eventPos) / ofGetWindowSize();
+//	ofVec2f mouseVel = ofVec2f(eventPos - pMouse) / ofGetWindowSize();
+//	addToFluid(mouseNorm, mouseVel, true, true);
+//	pMouse = eventPos;
 }
 

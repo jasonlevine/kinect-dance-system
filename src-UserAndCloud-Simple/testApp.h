@@ -32,6 +32,8 @@ public:
     bool bDebug;
     bool bCalibrate;
     
+    int currentScene;
+    vector<scene*> scenes;
     scene * lasers;
     scene * smoke;
 };
