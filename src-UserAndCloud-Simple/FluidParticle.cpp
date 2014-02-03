@@ -7,12 +7,12 @@
  *
  */
 
-#include "Particle.h"
+#include "FluidParticle.h"
 
 static const float MOMENTUM = 0.5f;
 static const float FLUID_FORCE = 0.6f;
 
-void Particle::init(float x, float y) {
+void fluidParticle::init(float x, float y) {
 	pos = ofVec2f( x, y );
 	vel = ofVec2f(0, 0);
 	radius = 5;
@@ -20,7 +20,7 @@ void Particle::init(float x, float y) {
 	mass = msa::Rand::randFloat( 0.1f, 1 );
 }
 
-void Particle::update( const msa::fluid::Solver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize ) {
+void fluidParticle::update( const msa::fluid::Solver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize ) {
 	// only update if particle is visible
 	if( alpha == 0 )
 		return;
@@ -60,7 +60,7 @@ void Particle::update( const msa::fluid::Solver &solver, const ofVec2f &windowSi
 
 
 
-void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer) {
+void fluidParticle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer, ofFloatColor particleColor) {
 	int vi = i * 4;
 	posBuffer[vi++] = pos.x - vel.x;
 	posBuffer[vi++] = pos.y - vel.y;
@@ -70,12 +70,18 @@ void Particle::updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSi
 	int ci = i * 6;
 	if( drawingFluid ) {
 		// if drawing fluid, draw lines as black & white
-		colBuffer[ci++] = alpha;
-		colBuffer[ci++] = alpha;
-		colBuffer[ci++] = alpha;
-		colBuffer[ci++] = alpha;
-		colBuffer[ci++] = alpha;
-		colBuffer[ci++] = alpha;
+        colBuffer[ci++] = particleColor.r;
+		colBuffer[ci++] = particleColor.g;
+		colBuffer[ci++] = particleColor.b;
+		colBuffer[ci++] = particleColor.r;
+		colBuffer[ci++] = particleColor.g;
+		colBuffer[ci++] = particleColor.b;
+//		colBuffer[ci++] = alpha;
+//		colBuffer[ci++] = alpha;
+//		colBuffer[ci++] = alpha;
+//		colBuffer[ci++] = alpha;
+//		colBuffer[ci++] = alpha;
+//		colBuffer[ci++] = alpha;
 	} else {
 		// otherwise, use color
 		float vxNorm = vel.x * invWindowSize.x;

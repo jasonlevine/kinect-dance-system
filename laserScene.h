@@ -16,7 +16,6 @@ public:
     void update(int width, int height);
     void draw(int x, int y, int width, int height, bool drawToScreen);
 
-    
     openNIManager * oni;
     flowManager * flow;
     

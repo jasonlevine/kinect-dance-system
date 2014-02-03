@@ -29,6 +29,11 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
 	
     threshold           = 0;
     
+    
+    bgColor.set(13, 13, 26);
+    fluidColor.set(255,0,0);
+    particleColor.set(0,255,0);
+    
 	ofSetFrameRate(60);
 	ofBackground(0, 0, 0);
 
@@ -55,20 +60,24 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
 	gui->addSlider("fs.fadeSpeed", 0.0, 0.1, &fluidSolver.fadeSpeed);
 	gui->addIntSlider("fs.solverIterations", 1, 50, &fluidSolver.solverIterations);
 	gui->addSlider("fs.deltaT", 0.1, 5, &fluidSolver.deltaT);
-//	gui->addComboBox("fd.drawMode", (int&)fluidDrawer.drawMode, msa::fluid::getDrawModeTitles());
 	gui->addToggle("fs.doRGB", &fluidSolver.doRGB);
 	gui->addToggle("fs.doVorticityConfinement", &fluidSolver.doVorticityConfinement);
 	gui->addToggle("drawFluid", &drawFluid);
 	gui->addToggle("drawParticles", &drawParticles);
 	gui->addToggle("fs.wrapX", &fluidSolver.wrap_x);
 	gui->addToggle("fs.wrapY", &fluidSolver.wrap_y);
+    gui->addSpacer(length-xInit, 1);
+    gui->addLabel("FLUID");
+    gui->addSlider("red", 0.0, 1.0, &fluidColor.r, length-xInit, dim);
+    gui->addSlider("green", 0.0, 1.0, &fluidColor.g, length-xInit, dim);
+    gui->addSlider("blue", 0.0, 1.0, &fluidColor.b, length-xInit, dim);
+    gui->addLabel("PARTICLES");
+    gui->addSlider("red", 0.0, 1.0, &particleColor.r, length-xInit, dim);
+    gui->addSlider("green", 0.0, 1.0, &particleColor.g, length-xInit, dim);
+    gui->addSlider("blue", 0.0, 1.0, &particleColor.b, length-xInit, dim);
+    
 
     gui->setVisible(false);
-//	gui->currentPage().setXMLName("ofxMSAFluidSettings.xml");
-//    gui->loadFromXML();
-//	gui->setDefaultKeys(true);
-//	gui->setAutoSave(true);
-//    gui->show();
 
 	
 //	windowResized(ofGetWidth(), ofGetHeight());		// force this at start (cos I don't think it is called)
@@ -96,10 +105,10 @@ void smokeScene::addToFluid(ofVec2f pos, ofVec2f vel, bool addColor, bool addFor
 		
 		if(addColor) {
             //			Color drawColor(CM_HSV, (getElapsedFrames() % 360) / 360.0f, 1, 1);
-			ofColor drawColor;
-			drawColor.setHsb((ofGetFrameNum() % 255), 255, 255);
+//			ofColor drawColor;
+//			drawColor.setHsb((ofGetFrameNum() % 255), 255, 255);
 			
-			fluidSolver.addColorAtIndex(index, drawColor * colorMult);
+			fluidSolver.addColorAtIndex(index, fluidColor * colorMult);
 			
 			if(drawParticles)
 				particleSystem.addParticles(pos * ofVec2f(ofGetWindowSize()), 10);
@@ -146,20 +155,15 @@ void smokeScene::draw(int x, int y, int width, int height, bool drawToScreen){
 		fluidDrawer.draw(0, 0, ofGetWidth(), ofGetHeight());
 	} else {
         //		if(ofGetFrameNum()%5==0)
-        fadeToColor(0, 0, 0, 0.01);
+        fadeToColor(0,0,0, 0.01);
 	}
-	if(drawParticles)
-		particleSystem.updateAndDraw(fluidSolver, ofGetWindowSize(), drawFluid);
+	if(drawParticles) {
+        ofSetColor(particleColor);
+		particleSystem.updateAndDraw(fluidSolver, ofGetWindowSize(), drawFluid, particleColor);
+    }
 	
     //	ofDrawBitmapString(sz, 50, 50);
     
 }
-//--------------------------------------------------------------
-void smokeScene::mouseMoved(int x, int y){
-//	ofVec2f eventPos = ofVec2f(x, y);
-//	ofVec2f mouseNorm = ofVec2f(eventPos) / ofGetWindowSize();
-//	ofVec2f mouseVel = ofVec2f(eventPos - pMouse) / ofGetWindowSize();
-//	addToFluid(mouseNorm, mouseVel, true, true);
-//	pMouse = eventPos;
-}
+
 

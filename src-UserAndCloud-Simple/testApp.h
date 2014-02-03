@@ -34,8 +34,6 @@ public:
     
     int currentScene;
     vector<scene*> scenes;
-    scene * lasers;
-    scene * smoke;
 };
 
 #endif

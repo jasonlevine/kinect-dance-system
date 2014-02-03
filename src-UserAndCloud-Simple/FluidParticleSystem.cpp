@@ -7,13 +7,13 @@
  *
  */
 
-#include "ParticleSystem.h"
+#include "FluidParticleSystem.h"
 
-ParticleSystem::ParticleSystem() {
+fluidParticleSystem::fluidParticleSystem() {
 	curIndex = 0;
 }
 
-void ParticleSystem::updateAndDraw(const msa::fluid::Solver &solver, ofVec2f windowSize, bool drawingFluid) {
+void fluidParticleSystem::updateAndDraw(const msa::fluid::Solver &solver, ofVec2f windowSize, bool drawingFluid, ofFloatColor particleColor) {
     ofVec2f invWindowSize(1.0f / windowSize.x, 1.0f / windowSize.y);
 
 	glEnable(GL_BLEND);
@@ -25,7 +25,7 @@ void ParticleSystem::updateAndDraw(const msa::fluid::Solver &solver, ofVec2f win
 	for(int i=0; i<MAX_PARTICLES; i++) {
 		if(particles[i].alpha > 0) {
 			particles[i].update(solver, windowSize, invWindowSize);
-			particles[i].updateVertexArrays(drawingFluid, invWindowSize, i, posArray, colArray);
+			particles[i].updateVertexArrays(drawingFluid, invWindowSize, i, posArray, colArray, particleColor);
 		}
 	}    
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -43,13 +43,13 @@ void ParticleSystem::updateAndDraw(const msa::fluid::Solver &solver, ofVec2f win
 }
 
 
-void ParticleSystem::addParticles(const ofVec2f &pos, int count){
+void fluidParticleSystem::addParticles(const ofVec2f &pos, int count){
 	for(int i=0; i<count; i++)
 		addParticle(pos + msa::Rand::randVec2f() * 15);
 }
 
 
-void ParticleSystem::addParticle(const ofVec2f &pos) {
+void fluidParticleSystem::addParticle(const ofVec2f &pos) {
 	particles[curIndex].init(pos.x, pos.y);
 	curIndex++;
 	if(curIndex >= MAX_PARTICLES) curIndex = 0;

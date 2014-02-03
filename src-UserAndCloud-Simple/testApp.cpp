@@ -10,11 +10,11 @@ void testApp::setup() {
     oni.setup();
     flow.setup();
     
-    lasers = new laserScene;
+    laserScene * lasers = new laserScene;
     lasers->setup(&oni, &flow);
     scenes.push_back(lasers);
     
-    smoke = new smokeScene;
+    smokeScene * smoke = new smokeScene;
     smoke->setup(&oni, &flow);
     scenes.push_back(smoke);
     
@@ -91,8 +91,6 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-    smokeScene * mySmoke = static_cast<smokeScene*>(smoke);
-    mySmoke->mouseMoved(x,y);
 }
 
 //--------------------------------------------------------------

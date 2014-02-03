@@ -11,7 +11,7 @@
 #include "scene.h"
 
 #include "MSAFluid.h"
-#include "ParticleSystem.h"
+#include "FluidParticleSystem.h"
 
 class smokeScene : public scene {
 public:
@@ -27,7 +27,6 @@ public:
     
     //----------------------------
     
-    void mouseMoved(int x, int y );
     void fadeToColor(float r, float g, float b, float speed);
 	void addToFluid(ofVec2f pos, ofVec2f vel, bool addColor, bool addForce);
     float                   colorMult;
@@ -40,11 +39,15 @@ public:
     msa::fluid::Solver      fluidSolver;
 	msa::fluid::DrawerGl	fluidDrawer;
 	
-	ParticleSystem          particleSystem;
+	fluidParticleSystem     particleSystem;
 	
 	ofVec2f                 pMouse;
     
     float threshold;
+    
+    ofFloatColor bgColor;
+    ofFloatColor fluidColor;
+    ofFloatColor particleColor;
 
     
 };

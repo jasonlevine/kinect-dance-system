@@ -20,8 +20,6 @@ void laserScene::setup(openNIManager * _oni, flowManager * _flow ){
     bgColor.set(0.,0.,0.,1.0);
     lineColor.set(1.,1.,1.,0.5);
     
-
-    
     //init gui dims
      float dim = 16;
      float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;

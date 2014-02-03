@@ -8,22 +8,22 @@
  */
 #pragma once
 
-#include "Particle.h"
+#include "FluidParticle.h"
 
 #define MAX_PARTICLES		50000
 
-class ParticleSystem {
+class fluidParticleSystem {
 public:	
 	
     float posArray[MAX_PARTICLES * 2 * 2];
     float colArray[MAX_PARTICLES * 3 * 2];
     int curIndex;
 	
-    Particle particles[MAX_PARTICLES];
+    fluidParticle particles[MAX_PARTICLES];
 	
-	ParticleSystem();
+	fluidParticleSystem();
 
-    void updateAndDraw(const msa::fluid::Solver &aSolver, ofVec2f windowSize, bool drawingFluid);
+    void updateAndDraw(const msa::fluid::Solver &aSolver, ofVec2f windowSize, bool drawingFluid, ofFloatColor particleColor);
 	void addParticles(const ofVec2f &pos, int count);
 	void addParticle(const ofVec2f &pos);
 };

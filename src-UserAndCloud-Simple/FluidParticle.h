@@ -12,7 +12,7 @@
 #include "MSACore.h"
 #include "MSAFluidSolver.h"
 
-class Particle {
+class fluidParticle {
 public:	
     ofVec2f	pos, vel;
     float	radius;
@@ -21,6 +21,6 @@ public:
 	
     void init(float x, float y);
     void update( const msa::fluid::Solver &solver, const ofVec2f &windowSize, const ofVec2f &invWindowSize );
-	void updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer);
+	void updateVertexArrays( bool drawingFluid, const ofVec2f &invWindowSize, int i, float* posBuffer, float* colBuffer, ofFloatColor particleColor);
 };
 

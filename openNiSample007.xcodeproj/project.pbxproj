@@ -103,8 +103,8 @@
 		9035C992189F5DB600C7DC55 /* MSAFluidDrawerBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C98B189F5DB600C7DC55 /* MSAFluidDrawerBase.cpp */; };
 		9035C993189F5DB600C7DC55 /* MSAFluidSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C990189F5DB600C7DC55 /* MSAFluidSolver.cpp */; };
 		9035C99D189F5DCB00C7DC55 /* MSACoreGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C99A189F5DCB00C7DC55 /* MSACoreGL.cpp */; };
-		9035C9A8189F5E2300C7DC55 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C9A4189F5E2300C7DC55 /* Particle.cpp */; };
-		9035C9A9189F5E2300C7DC55 /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C9A6189F5E2300C7DC55 /* ParticleSystem.cpp */; };
+		9035C9A8189F5E2300C7DC55 /* FluidParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C9A4189F5E2300C7DC55 /* FluidParticle.cpp */; };
+		9035C9A9189F5E2300C7DC55 /* FluidParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9035C9A6189F5E2300C7DC55 /* FluidParticleSystem.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -561,10 +561,10 @@
 		9035C99A189F5DCB00C7DC55 /* MSACoreGL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MSACoreGL.cpp; sourceTree = "<group>"; };
 		9035C99B189F5DCB00C7DC55 /* MSACoreGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSACoreGL.h; sourceTree = "<group>"; };
 		9035C99C189F5DCB00C7DC55 /* MSACoreMath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSACoreMath.h; sourceTree = "<group>"; };
-		9035C9A4189F5E2300C7DC55 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Particle.cpp; path = "src-UserAndCloud-Simple/Particle.cpp"; sourceTree = SOURCE_ROOT; };
-		9035C9A5189F5E2300C7DC55 /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Particle.h; path = "src-UserAndCloud-Simple/Particle.h"; sourceTree = SOURCE_ROOT; };
-		9035C9A6189F5E2300C7DC55 /* ParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParticleSystem.cpp; path = "src-UserAndCloud-Simple/ParticleSystem.cpp"; sourceTree = SOURCE_ROOT; };
-		9035C9A7189F5E2300C7DC55 /* ParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParticleSystem.h; path = "src-UserAndCloud-Simple/ParticleSystem.h"; sourceTree = SOURCE_ROOT; };
+		9035C9A4189F5E2300C7DC55 /* FluidParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FluidParticle.cpp; path = "src-UserAndCloud-Simple/FluidParticle.cpp"; sourceTree = SOURCE_ROOT; };
+		9035C9A5189F5E2300C7DC55 /* FluidParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FluidParticle.h; path = "src-UserAndCloud-Simple/FluidParticle.h"; sourceTree = SOURCE_ROOT; };
+		9035C9A6189F5E2300C7DC55 /* FluidParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FluidParticleSystem.cpp; path = "src-UserAndCloud-Simple/FluidParticleSystem.cpp"; sourceTree = SOURCE_ROOT; };
+		9035C9A7189F5E2300C7DC55 /* FluidParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FluidParticleSystem.h; path = "src-UserAndCloud-Simple/FluidParticleSystem.h"; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -1393,10 +1393,8 @@
 			isa = PBXGroup;
 			children = (
 				9035C8E1189F47C000C7DC55 /* scene.h */,
-				9035C973189F490700C7DC55 /* laserScene.cpp */,
-				9035C974189F490700C7DC55 /* laserScene.h */,
-				9035C985189F5CD800C7DC55 /* smokeScene.cpp */,
-				9035C986189F5CD800C7DC55 /* smokeScene.h */,
+				90B2758618A037CC00494D40 /* laserScene */,
+				90B2758718A037D700494D40 /* smokeScene */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -1490,15 +1488,34 @@
 			path = ../../../addons/ofxMSACore/src;
 			sourceTree = "<group>";
 		};
-		9035C9AA189F5E2A00C7DC55 /* particles */ = {
+		9035C9AA189F5E2A00C7DC55 /* fluid particles */ = {
 			isa = PBXGroup;
 			children = (
-				9035C9A4189F5E2300C7DC55 /* Particle.cpp */,
-				9035C9A5189F5E2300C7DC55 /* Particle.h */,
-				9035C9A6189F5E2300C7DC55 /* ParticleSystem.cpp */,
-				9035C9A7189F5E2300C7DC55 /* ParticleSystem.h */,
+				9035C9A4189F5E2300C7DC55 /* FluidParticle.cpp */,
+				9035C9A5189F5E2300C7DC55 /* FluidParticle.h */,
+				9035C9A6189F5E2300C7DC55 /* FluidParticleSystem.cpp */,
+				9035C9A7189F5E2300C7DC55 /* FluidParticleSystem.h */,
 			);
-			name = particles;
+			name = "fluid particles";
+			sourceTree = "<group>";
+		};
+		90B2758618A037CC00494D40 /* laserScene */ = {
+			isa = PBXGroup;
+			children = (
+				9035C973189F490700C7DC55 /* laserScene.cpp */,
+				9035C974189F490700C7DC55 /* laserScene.h */,
+			);
+			name = laserScene;
+			sourceTree = "<group>";
+		};
+		90B2758718A037D700494D40 /* smokeScene */ = {
+			isa = PBXGroup;
+			children = (
+				9035C985189F5CD800C7DC55 /* smokeScene.cpp */,
+				9035C986189F5CD800C7DC55 /* smokeScene.h */,
+				9035C9AA189F5E2A00C7DC55 /* fluid particles */,
+			);
+			name = smokeScene;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
@@ -1576,7 +1593,6 @@
 				9035C7EB189EEC7B00C7DC55 /* main.cpp */,
 				9035C7EC189EEC7B00C7DC55 /* testApp.cpp */,
 				9035C7ED189EEC7B00C7DC55 /* testApp.h */,
-				9035C9AA189F5E2A00C7DC55 /* particles */,
 				9035C977189F496B00C7DC55 /* managers */,
 				9035C976189F496100C7DC55 /* scenes */,
 			);
@@ -1690,7 +1706,7 @@
 				9035C965189F48C200C7DC55 /* ofxUISlider.cpp in Sources */,
 				9035C952189F48C200C7DC55 /* ofxUIImage.cpp in Sources */,
 				9035C95A189F48C200C7DC55 /* ofxUILabelToggle.cpp in Sources */,
-				9035C9A8189F5E2300C7DC55 /* Particle.cpp in Sources */,
+				9035C9A8189F5E2300C7DC55 /* FluidParticle.cpp in Sources */,
 				9035C947189F48C200C7DC55 /* ofxUIBaseDraws.cpp in Sources */,
 				9035C960189F48C200C7DC55 /* ofxUIRadio.cpp in Sources */,
 				9035C96B189F48C200C7DC55 /* ofxUITextArea.cpp in Sources */,
@@ -1730,7 +1746,7 @@
 				9035C8D2189EFF1500C7DC55 /* ofxCvContourFinder.cpp in Sources */,
 				9035C96F189F48C200C7DC55 /* ofxUIValuePlotter.cpp in Sources */,
 				9035C975189F490700C7DC55 /* laserScene.cpp in Sources */,
-				9035C9A9189F5E2300C7DC55 /* ParticleSystem.cpp in Sources */,
+				9035C9A9189F5E2300C7DC55 /* FluidParticleSystem.cpp in Sources */,
 				9035C987189F5CD800C7DC55 /* smokeScene.cpp in Sources */,
 				9035C95E189F48C200C7DC55 /* ofxUIMultiImageToggle.cpp in Sources */,
 				9035C96A189F48C200C7DC55 /* ofxUITabBar.cpp in Sources */,
