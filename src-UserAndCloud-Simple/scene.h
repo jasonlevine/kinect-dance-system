@@ -23,4 +23,5 @@ public:
     flowManager * flow;
     
     ofxUICanvas *gui;
+
 };

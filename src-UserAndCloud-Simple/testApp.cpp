@@ -10,14 +10,15 @@ void testApp::setup() {
     oni.setup();
     flow.setup();
     
-    lasers.setup(&oni, &flow);
+    lasers = new laserScene;
+    lasers->setup(&oni, &flow);
     
     bDebug = false;
     bCalibrate = true;
     
     ofBackground(25);
+    ofEnableAntiAliasing();
     
-
 }
 
 //--------------------------------------------------------------
@@ -40,7 +41,7 @@ void testApp::draw(){
         flow.draw(0,480,640,480);
     }
     else {
-        lasers.draw(0, 0, ofGetWidth(), ofGetHeight(), true);
+        lasers->draw(0, 0, ofGetWidth(), ofGetHeight(), true);
     }
     
 }
@@ -61,6 +62,10 @@ void testApp::keyPressed(int key){
             
         case 'c':
             bCalibrate = !bCalibrate;
+            break;
+            
+        case 'g':
+            lasers->toggleGUI();
             break;
     }
 }

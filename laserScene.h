@@ -10,20 +10,25 @@
 
 #include "scene.h"
 
-class laserScene {
+class laserScene : public scene {
 public:
     void setup(openNIManager * _oni, flowManager * _flow );
     void update(int width, int height);
     void draw(int x, int y, int width, int height, bool drawToScreen);
-    void toggleGUI();
+
     
     openNIManager * oni;
     flowManager * flow;
     
     ofxUICanvas *gui;
+    void toggleGUI(){ gui->toggleVisible(); }
     
     float threshold;
     float lineScale;
     float lineWidth;
+    float lineWidthMult;
+    
+    ofFloatColor bgColor, lineColor;
+    
     
 };

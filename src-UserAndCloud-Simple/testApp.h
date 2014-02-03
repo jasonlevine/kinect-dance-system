@@ -31,7 +31,7 @@ public:
     bool bDebug;
     bool bCalibrate;
     
-    laserScene lasers;
+    scene * lasers;
 };
 
 #endif
