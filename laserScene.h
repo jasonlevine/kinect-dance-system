@@ -29,6 +29,5 @@ public:
     float lineWidthMult;
     
     ofFloatColor bgColor, lineColor;
-    
-    
+
 };

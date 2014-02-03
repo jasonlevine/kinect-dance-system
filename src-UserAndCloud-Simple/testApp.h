@@ -7,6 +7,7 @@
 #include "flowManager.h"
 
 #include "laserScene.h"
+#include "smokeScene.h"
 
 class testApp : public ofBaseApp{
 
@@ -32,6 +33,7 @@ public:
     bool bCalibrate;
     
     scene * lasers;
+    scene * smoke;
 };
 
 #endif

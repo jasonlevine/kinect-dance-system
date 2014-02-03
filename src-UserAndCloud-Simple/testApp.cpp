@@ -13,6 +13,9 @@ void testApp::setup() {
     lasers = new laserScene;
     lasers->setup(&oni, &flow);
     
+    smoke = new smokeScene;
+    smoke->setup(&oni, &flow);
+    
     bDebug = false;
     bCalibrate = true;
     
@@ -30,6 +33,8 @@ void testApp::update(){
             flow.update(oni.maskPix);
         }
     }
+    
+    smoke->update(0,0);
 
 }
 
@@ -41,7 +46,7 @@ void testApp::draw(){
         flow.draw(0,480,640,480);
     }
     else {
-        lasers->draw(0, 0, ofGetWidth(), ofGetHeight(), true);
+        smoke->draw(0, 0, ofGetWidth(), ofGetHeight(), true);
     }
     
 }
@@ -77,7 +82,8 @@ void testApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y ){
-
+    smokeScene * mySmoke = static_cast<smokeScene*>(smoke);
+    mySmoke->mouseMoved(x,y);
 }
 
 //--------------------------------------------------------------
