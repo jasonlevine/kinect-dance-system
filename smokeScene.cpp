@@ -32,33 +32,41 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
 
 	
     
-	
-/*
-	gui.addSlider("fluidCellsX", fluidCellsX, 20, 400);
-	gui.addButton("resizeFluid", resizeFluid);
-    gui.addSlider("colorMult", colorMult, 0, 100);
-    gui.addSlider("velocityMult", velocityMult, 0, 100);
-	gui.addSlider("fs.viscocity", fluidSolver.viscocity, 0.0, 0.01);
-	gui.addSlider("fs.colorDiffusion", fluidSolver.colorDiffusion, 0.0, 0.0003);
-	gui.addSlider("fs.fadeSpeed", fluidSolver.fadeSpeed, 0.0, 0.1);
-	gui.addSlider("fs.solverIterations", fluidSolver.solverIterations, 1, 50);
-	gui.addSlider("fs.deltaT", fluidSolver.deltaT, 0.1, 5);
-	gui.addComboBox("fd.drawMode", (int&)fluidDrawer.drawMode, msa::fluid::getDrawModeTitles());
-	gui.addToggle("fs.doRGB", fluidSolver.doRGB);
-	gui.addToggle("fs.doVorticityConfinement", fluidSolver.doVorticityConfinement);
-	gui.addToggle("drawFluid", drawFluid);
-	gui.addToggle("drawParticles", drawParticles);
-	gui.addToggle("fs.wrapX", fluidSolver.wrap_x);
-	gui.addToggle("fs.wrapY", fluidSolver.wrap_y);
-    gui.addSlider("tuioXScaler", tuioXScaler, 0, 2);
-    gui.addSlider("tuioYScaler", tuioYScaler, 0, 2);
+    //init gui dims
+    float dim = 16;
+    float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
+    float length = 255-xInit;
     
-	gui.currentPage().setXMLName("ofxMSAFluidSettings.xml");
-    gui.loadFromXML();
-	gui.setDefaultKeys(true);
-	gui.setAutoSave(true);
-    gui.show();
-*/
+    //gui!
+    gui = new ofxUICanvas(0, 0, length+xInit, ofGetHeight());
+    
+    gui->addFPSSlider("FPS SLIDER", length-xInit, dim*.25, 60);
+    
+    gui->addSpacer(length-xInit, 1);
+	gui->addIntSlider("fluidCellsX", 20, 400, &fluidCellsX);
+	gui->addButton("resizeFluid", &resizeFluid);
+    gui->addSlider("colorMult", 0, 100, &colorMult);
+    gui->addSlider("velocityMult", 0, 100, &velocityMult);
+	gui->addSlider("fs.viscocity", 0.0, 0.01, &fluidSolver.viscocity);
+	gui->addSlider("fs.colorDiffusion", 0.0, 0.0003, &fluidSolver.colorDiffusion);
+	gui->addSlider("fs.fadeSpeed", 0.0, 0.1, &fluidSolver.fadeSpeed);
+	gui->addIntSlider("fs.solverIterations", 1, 50, &fluidSolver.solverIterations);
+	gui->addSlider("fs.deltaT", 0.1, 5, &fluidSolver.deltaT);
+//	gui->addComboBox("fd.drawMode", (int&)fluidDrawer.drawMode, msa::fluid::getDrawModeTitles());
+	gui->addToggle("fs.doRGB", &fluidSolver.doRGB);
+	gui->addToggle("fs.doVorticityConfinement", &fluidSolver.doVorticityConfinement);
+	gui->addToggle("drawFluid", &drawFluid);
+	gui->addToggle("drawParticles", &drawParticles);
+	gui->addToggle("fs.wrapX", &fluidSolver.wrap_x);
+	gui->addToggle("fs.wrapY", &fluidSolver.wrap_y);
+
+    gui->setVisible(false);
+//	gui->currentPage().setXMLName("ofxMSAFluidSettings.xml");
+//    gui->loadFromXML();
+//	gui->setDefaultKeys(true);
+//	gui->setAutoSave(true);
+//    gui->show();
+
 	
 //	windowResized(ofGetWidth(), ofGetHeight());		// force this at start (cos I don't think it is called)
 	pMouse = msa::getWindowCenter();

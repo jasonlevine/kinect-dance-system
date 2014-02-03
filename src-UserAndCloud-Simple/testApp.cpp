@@ -70,7 +70,7 @@ void testApp::keyPressed(int key){
             break;
             
         case 'g':
-            lasers->toggleGUI();
+            smoke->toggleGUI();
             break;
     }
 }
