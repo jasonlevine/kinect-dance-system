@@ -16,28 +16,83 @@ void openNIManager::setup() {
     openNIDevice.setup();
     openNIDevice.addImageGenerator();
     openNIDevice.addDepthGenerator();
+    openNIDevice.setDepthColoring(COLORING_GREY);
     openNIDevice.setRegister(true);
     openNIDevice.setMirror(true);
     openNIDevice.addUserGenerator();
     openNIDevice.setMaxNumUsers(2);
+//    depthThresh.set(255, 70);
+//    depthThresh.setUseDepthPixels(true);
+//    openNIDevice.addDepthThreshold(depthThresh);
     openNIDevice.start();
     
     
     openNIDevice.setUseMaskPixelsAllUsers(true);
     openNIDevice.setUsePointCloudsAllUsers(false);
     
-    verdana.loadFont(ofToDataPath("verdana.ttf"), 24);
+//    grayImage.allocate(640, 480);
+//	grayThreshNear.allocate(640, 480);
+//	grayThreshFar.allocate(640, 480);
     
+    nearThresh = 255;
+    farThresh = 20;
+    
+    
+    verdana.loadFont(ofToDataPath("verdana.ttf"), 24);
+ 
+    maskPix.allocate(640, 480, 1);
+    
+    bUseDepth = true;
 }
 
 //--------------------------------------------------------------
 void openNIManager::update(){
     openNIDevice.update();
+
+    if (bUseDepth) {
+        if (openNIDevice.isNewFrame()) {
+            maskPix = openNIDevice.getDepthPixels();
+            maskPix.setNumChannels(1);
+            maskPix.resize(320, 240);
+            
+			for(int i = 0; i < maskPix.size(); i++) {
+				if(maskPix[i] < nearThresh && maskPix[i] > farThresh) {
+					maskPix[i] = 255;
+				} else {
+					maskPix[i] = 0;
+				}
+			}
+        }
+    }
+    else {
+        // get number of current users
+        int numUsers = openNIDevice.getNumTrackedUsers();
+        
+        // iterate through users
+        for (int i = 0; i < numUsers; i++){
+            
+            // get a reference to this user
+            ofxOpenNIUser & user = openNIDevice.getTrackedUser(i);
+            
+            // draw the mask texture for this user
+            //        user.drawMask();
+            
+            // PIXEL REFERENCE
+            if (user.isFound()) {
+                maskPix = user.getMaskPixels();
+                maskPix.resize(320, 240);
+            }
+
+            
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void openNIManager::draw(){
-	ofSetColor(255, 255, 255);
+
+    
+    ofSetColor(255, 255, 255);
     
     ofPushMatrix();
     // draw debug (ie., image, depth, skeleton)
@@ -48,29 +103,8 @@ void openNIManager::draw(){
     // use a blend mode so we can see 'through' the mask(s)
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
-    // get number of current users
-    int numUsers = openNIDevice.getNumTrackedUsers();
-    
-    // iterate through users
-    for (int i = 0; i < numUsers; i++){
-        
-        // get a reference to this user
-        ofxOpenNIUser & user = openNIDevice.getTrackedUser(i);
-        
-        // draw the mask texture for this user
-        //        user.drawMask();
-        
-        // PIXEL REFERENCE
-        maskPix = user.getMaskPixels();
-        // do something with the pixels...
-        
-        if (maskPix.isAllocated()) {
-            ofImage maskImg = maskPix;
-            maskImg.draw(0, 480);
-        }
-        maskPix.clear();
-        
-    }
+    ofImage maskImg = maskPix;
+    maskImg.draw(0, 480);
     
     ofDisableBlendMode();
     ofPopMatrix();
@@ -79,7 +113,10 @@ void openNIManager::draw(){
 	ofSetColor(0, 255, 0);
 	string msg = " MILLIS: " + ofToString(ofGetElapsedTimeMillis()) + " FPS: " + ofToString(ofGetFrameRate()) + " Device FPS: " + ofToString(openNIDevice.getFrameRate());
     
+    string thresholds = "NEAR = " + ofToString(nearThresh) + " FAR = " + ofToString(farThresh);
+    
 	verdana.drawString(msg, 20, openNIDevice.getNumDevices() * 480 - 20);
+    verdana.drawString(thresholds, 20, 500);
 }
 
 //--------------------------------------------------------------
@@ -94,6 +131,72 @@ void openNIManager::exit(){
 }
 
 //--------------------------------------------------------------
-void openNIManager::keyPressed(int key){
+bool openNIManager::isNewFrame() {
+    return openNIDevice.isNewFrame();
+}
+
+//--------------------------------------------------------------
+bool openNIManager::isFound() {
+    int numUsers = openNIDevice.getNumTrackedUsers();
+    bool userFound = false;
+    // iterate through users
+    for (int i = 0; i < numUsers; i++){
+        ofxOpenNIUser & user = openNIDevice.getTrackedUser(i);
+        userFound |= user.isFound();
+    }
     
+    return userFound;
+}
+
+//--------------------------------------------------------------
+bool openNIManager::isSkeleton() {
+    int numUsers = openNIDevice.getNumTrackedUsers();
+    bool userSkeleton = false;
+    // iterate through users
+    for (int i = 0; i < numUsers; i++){
+        ofxOpenNIUser & user = openNIDevice.getTrackedUser(i);
+        userSkeleton |= user.isSkeleton();
+    }
+    
+    return userSkeleton;
+}
+
+
+
+//--------------------------------------------------------------
+void openNIManager::keyPressed(int key){
+    switch (key) {
+        case 'r':
+        {
+            int numUsers = openNIDevice.getNumTrackedUsers();
+            
+            // iterate through users
+            for (int i = 0; i < numUsers; i++){
+                openNIDevice.resetUserTracking(i, true);
+            }
+            break;
+        }
+            
+            
+        case ',':
+            if (farThresh > 0)farThresh--;
+            break;
+            
+        case '.':
+            if (farThresh < 255) farThresh++;
+            break;
+            
+        case '-':
+            if (nearThresh > 0) nearThresh--;
+            break;
+            
+        case '=':
+            if (nearThresh < 255) nearThresh++;
+            break;
+            
+        case 'D':
+            bUseDepth = !bUseDepth;
+            break;
+  
+    }
 }

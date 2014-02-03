@@ -1,19 +1,39 @@
 #include "testApp.h"
 
+using namespace ofxCv;
+using namespace cv;
+
 //--------------------------------------------------------------
 void testApp::setup() {
     ofSetFrameRate(30);
+    
     oni.setup();
+    flow.setup();
+    
+    
+    bDebug = false;
+    
+    ofBackground(25);
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     oni.update();
+    
+    if(oni.isNewFrame()) {
+        if ((oni.isSkeleton() && oni.isFound()) || oni.bUseDepth) {
+            flow.update(oni.maskPix);
+        }
+    }
+
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
 	oni.draw();
+    ofSetColor(255);
+    flow.draw(0,480,640,480);
+    
 }
 
 //--------------------------------------------------------------
@@ -24,6 +44,12 @@ void testApp::exit(){
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
     oni.keyPressed(key);
+    
+    switch (key) {
+        case 'd':
+            bDebug = true;
+            break;
+    }
 }
 
 //--------------------------------------------------------------

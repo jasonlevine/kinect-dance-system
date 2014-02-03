@@ -1,8 +1,9 @@
 #ifndef _TEST_APP
 #define _TEST_APP
 
-#include "openNIManager.h"
 #include "ofMain.h"
+#include "openNIManager.h"
+#include "flowManager.h"
 
 class testApp : public ofBaseApp{
 
@@ -22,6 +23,10 @@ public:
 	void windowResized(int w, int h);
 
     openNIManager oni;
+    
+    flowManager flow;
+    
+    bool bDebug;
     
 };
 
