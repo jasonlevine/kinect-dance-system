@@ -38,6 +38,23 @@ void testApp::setup() {
     scale = 1.0;
     xOffset = yOffset = 0.0;
     
+    //graphics
+    ofFbo::Settings s;
+    s.width = ppWidth;
+    s.height = ppHeight;
+    s.textureTarget = GL_TEXTURE_2D;
+    s.useDepth = true;
+    s.depthStencilInternalFormat = GL_DEPTH_COMPONENT24;
+    s.depthStencilAsTexture = true;
+    s.internalformat = GL_RGBA32F;
+    
+    fbo.allocate(s);
+    
+    fbo.begin();
+    ofClear(0);
+    fbo.end();
+
+    
 }
 
 //--------------------------------------------------------------
@@ -51,21 +68,24 @@ void testApp::update(){
     }
     
     scenes[currentScene]->update(ofGetWidth(),ofGetHeight());
-
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	if (bCalibrate) {
-        ofSetColor(255);
+	ofSetColor(255);
+    
+    if (bCalibrate) {
         oni.draw(xOffset, yOffset, scale);
 //        ofSetColor(255);
 //        flow.draw(0,480,640,480);
     }
     else {
+        fbo.begin();
+        ofClear(0,0,0,0);
         scenes[currentScene]->draw(xOffset, yOffset, scale);
+        fbo.end();
+        fbo.draw(0,0);
     }
-    
 }
 
 //--------------------------------------------------------------

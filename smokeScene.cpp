@@ -128,26 +128,32 @@ void smokeScene::update(int width, int height){
 		resizeFluid = false;
 	}
     
+
+}
+
+void smokeScene::draw(float x, float y, float scale){
+    
+    //moved this from update as the easiest wy to get mapping vars
     for (int i = 0; i < flow->current.size(); i++) {
         if (flow->motion[i + flow->motion.size()/2].lengthSquared() > threshold) {
             
             ofVec2f featNorm;
-            featNorm.x = flow->features[i].x / 320.;
-            featNorm.y = flow->features[i].y / 240.;
+            featNorm.x = ((flow->features[i].x - 160) * scale + 160 + x)  / ofGetWidth();
+            featNorm.y = ((flow->features[i].y - 120) * scale + 120 + y)  / ofGetHeight();
             
             ofVec2f featVel;
-            featVel.x = flow->motion[i + flow->motion.size()/2].x / 320.;
-            featVel.y = flow->motion[i + flow->motion.size()/2].y / 240.;
+            featVel.x = flow->motion[i + flow->motion.size()/2].x * scale / ofGetWidth();
+            featVel.y = flow->motion[i + flow->motion.size()/2].y * scale / ofGetHeight();
             
             addToFluid(featNorm, featVel, true, true);
         }
     }
-
+    
 	fluidSolver.update();
-}
-
-void smokeScene::draw(float x, float y, float scale){
-	ofPushStyle();
+    //end update
+    
+    
+    ofPushStyle();
     ofSetBackgroundAuto(false);
     ofEnableAlphaBlending();
     

@@ -22,7 +22,7 @@ public:
     openNIManager * oni;
     flowManager * flow;
     
-    ofxUICanvas *gui;
+    ofxUICanvas * gui;
     void toggleGUI(){ gui->toggleVisible(); }
     
     //----------------------------

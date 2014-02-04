@@ -3,6 +3,8 @@
 
 #include "ofMain.h"
 
+#include "ofxPostProcessing.h"
+
 #include "openNIManager.h"
 #include "flowManager.h"
 
@@ -41,6 +43,15 @@ public:
     //mapping
     float scale;
     float xOffset, yOffset;
+    
+    //rednering
+    ofFbo fbo;
+    
+    int width, height, ppWidth, ppHeight;
+    
+    ofxPostProcessing post;
+    vector<RenderPass::Ptr> renderPasses;
+    
 };
 
 #endif

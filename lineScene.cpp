@@ -108,9 +108,9 @@ void lineScene::draw(float x, float y, float scale){
     
     ofPushMatrix();
     ofTranslate(x, y);
-    ofTranslate(320, 240);
+    ofTranslate(160, 120);
     ofScale(scale, scale);
-    ofTranslate(-320, -240);
+    ofTranslate(-160, -120);
     ofScale(0.5, 0.5);
     if ( bDrawMoire) drawMoire();
     if ( bDrawBody ) drawBodyLines();

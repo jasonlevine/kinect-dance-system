@@ -62,9 +62,9 @@ void laserScene::draw(float x, float y, float scale){
     
     ofPushMatrix();
     ofTranslate(x, y);
-    ofTranslate(320, 240);
+    ofTranslate(160, 120);
     ofScale(scale, scale);
-    ofTranslate(-320, -240);
+    ofTranslate(-160, -120);
 
     for (int i = 0; i < flow->current.size(); i++) {
         if (flow->motion[i + flow->motion.size()/2].lengthSquared() > threshold) {
