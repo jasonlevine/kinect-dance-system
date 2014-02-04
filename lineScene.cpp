@@ -41,9 +41,9 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui = new ofxUICanvas(0, 0, length+xInit, ofGetHeight());
     
     gui->addFPSSlider("FPS SLIDER", length-xInit, dim*.25, 60);
-    
     gui->addSpacer(length-xInit, 1);
     gui->addSlider("lineWidth", 0.1, 10, &lineWidth, length-xInit, dim);
+    gui->addSlider("lineWidth", 0.1, 10, &linesWidth, length-xInit, dim);
     gui->addSlider("distanceScale", 0.1, 1.0, &distanceScale, length-xInit, dim);
 //    gui->addIntSlider("fadeAmt", 0, 255, &fadeAmt, length-xInit, dim);
     gui->addIntSlider("alpha", 0, 255, &alpha, length-xInit, dim);
@@ -100,13 +100,11 @@ void lineScene::draw(int x, int y, int width, int height, bool drawToScreen){
     ofEnableAlphaBlending();
     
     ofBackground(bgColor);
+    ofSetColor(lineColor);
     
     ofPushMatrix();
-
-    ofSetColor(lineColor);
     if ( bDrawMoire) drawMoire();
     if ( bDrawBody ) drawBodyLines();
-
     ofPopMatrix();
 
     ofDisableAlphaBlending();
@@ -116,8 +114,7 @@ void lineScene::draw(int x, int y, int width, int height, bool drawToScreen){
 }
 
 void lineScene::drawLine(ofVec3f jointA, ofVec3f jointB){
-    ofPushStyle();
-    
+
     ofVec2f diff = ofVec2f((jointB.x - jointA.x), (jointB.y - jointA.y));
     
     diff.normalize();
@@ -125,7 +122,8 @@ void lineScene::drawLine(ofVec3f jointA, ofVec3f jointB){
     ofVec2f midpoint = ofVec2f((jointA.x + jointB.x) / 2, (jointA.y + jointB.y) / 2);
     midpoint = midpoint / 480 * height;
     
-    ofSetColor(255,255,255);
+    ofPushStyle();
+    ofSetLineWidth(lineWidth);
     
     ofLine(midpoint.x, midpoint.y, midpoint.x + diff.x * width, midpoint.y + diff.y * height);
     ofLine(midpoint.x, midpoint.y, midpoint.x - diff.x * width, midpoint.y - diff.y * height);
@@ -135,7 +133,7 @@ void lineScene::drawLine(ofVec3f jointA, ofVec3f jointB){
 }
 
 void lineScene::drawLines(ofVec3f jointA, ofVec3f jointB, float spacing){
-    ofPushStyle();
+
     
     ofVec2f diff = ofVec2f((jointB.x - jointA.x), (jointB.y - jointA.y));
     cout << "diff =  " << diff << endl;
@@ -147,9 +145,11 @@ void lineScene::drawLines(ofVec3f jointA, ofVec3f jointB, float spacing){
     
     ofVec2f midpointB = midpoint + normal * 10;
     
+    
+    ofPushStyle();
+    ofSetLineWidth(linesWidth);
     ofEnableAlphaBlending();
-    
-    
+
     ofPushMatrix();
     //    ofTranslate(0, height);
     

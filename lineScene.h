@@ -29,6 +29,7 @@ public:
     
     float width, height;
     float lineWidth;
+    float linesWidth;
     float distanceScale;
     int alpha;
     bool llArm, rlArm,
