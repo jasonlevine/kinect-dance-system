@@ -32,6 +32,9 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     luLeg = true;
     ruLeg = true;
     
+    bgColor.set(0.0);
+    lineColor.set(1.0);
+    
     //init gui dims
     float dim = 16;
 	float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;

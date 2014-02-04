@@ -30,10 +30,13 @@ void testApp::setup() {
     numScenes = 4;
     
     bDebug = false;
-    bCalibrate = false;
+    bCalibrate = true;
     
     ofBackground(25);
     ofEnableAntiAliasing();
+    
+    scale = 1.0;
+    xOffset = yOffset = 0.0;
     
 }
 
@@ -54,12 +57,20 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	if (bCalibrate) {
-        oni.draw();
         ofSetColor(255);
-        flow.draw(0,480,640,480);
+        
+        ofPushMatrix();
+        ofTranslate(xOffset, yOffset);
+        ofTranslate(320, 240);
+        ofScale(scale, scale);
+        ofTranslate(-320, -240);
+        oni.draw();
+        ofPopMatrix();
+//        ofSetColor(255);
+//        flow.draw(0,480,640,480);
     }
     else {
-        scenes[currentScene]->draw(0, 0, ofGetWidth(), ofGetHeight(), true);
+        scenes[currentScene]->draw(xOffset, yOffset, ofGetWidth(), ofGetHeight(), true);
     }
     
 }
@@ -94,6 +105,30 @@ void testApp::keyPressed(int key){
             currentScene%=numScenes;
             if (currentScene == 3) oni.bUseDepth = false;
             cout << "currentScene = " << currentScene << endl;
+            break;
+            
+        case OF_KEY_LEFT:
+            xOffset-=5;
+            break;
+            
+        case OF_KEY_RIGHT:
+            xOffset+=5;
+            break;
+            
+        case OF_KEY_UP:
+            yOffset-=5;
+            break;
+            
+        case OF_KEY_DOWN:
+            yOffset+=5;
+            break;
+            
+        case '-':
+            scale-=0.1;
+            break;
+            
+        case '=':
+            scale+=0.1;
             break;
     }
 }

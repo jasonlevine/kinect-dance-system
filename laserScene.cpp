@@ -75,6 +75,7 @@ void laserScene::draw(int x, int y, int width, int height, bool drawToScreen){
             //                ofLine(x1,y1,x2,y2);
             ofLine((flow->features[i] - featMotion * lineScale) / 240 * height,
                    (flow->features[i] + featMotion * lineScale) / 240 * height);
+            
         }
     }
     ofPopMatrix();

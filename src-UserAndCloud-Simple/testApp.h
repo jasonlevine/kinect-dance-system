@@ -37,6 +37,10 @@ public:
     int currentScene;
     int numScenes;
     vector<scene*> scenes;
+    
+    //mapping
+    float scale;
+    float xOffset, yOffset;
 };
 
 #endif

@@ -107,22 +107,22 @@ void openNIManager::update(){
 }
 
 //--------------------------------------------------------------
-void openNIManager::draw(){
+void openNIManager::draw(float x, float y, float scale){
 
     
     ofSetColor(255, 255, 255);
     
-    ofPushMatrix();
-    // draw debug (ie., image, depth, skeleton)
-    openNIDevice.drawDebug();
-    ofPopMatrix();
+//    ofPushMatrix();
+//    // draw debug (ie., image, depth, skeleton)
+//    openNIDevice.drawDebug();
+//    ofPopMatrix();
     
     ofPushMatrix();
     // use a blend mode so we can see 'through' the mask(s)
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
     ofImage maskImg = maskPix;
-    maskImg.draw(0, 480);
+    maskImg.draw(0, 0);
     
     ofDisableBlendMode();
     ofPopMatrix();
@@ -204,11 +204,11 @@ void openNIManager::keyPressed(int key){
             if (farThresh < 255) farThresh++;
             break;
             
-        case '-':
+        case 'l':
             if (nearThresh > 0) nearThresh--;
             break;
             
-        case '=':
+        case ';':
             if (nearThresh < 255) nearThresh++;
             break;
             

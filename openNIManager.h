@@ -15,7 +15,7 @@ class openNIManager {
 public:
     void setup();
 	void update();
-	void draw();
+	void draw(float x, float y, float scale);
     void exit();
     
     bool isNewFrame();
@@ -27,7 +27,7 @@ public:
     ofVec3f getLeftHandPos() { return leftHandPos; }
     
 
-	void keyPressed  (int key);
+	void keyPressed(int key);
     void userEvent(ofxOpenNIUserEvent & event);
     
 	ofxOpenNI openNIDevice;
