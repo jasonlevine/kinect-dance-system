@@ -16,7 +16,7 @@ class scene {
 public:
     virtual void setup(openNIManager * _oni, flowManager * _flow ){}
     virtual void update(int width, int height){}
-    virtual void draw(int x, int y, int width, int height, bool drawToScreen){}
+    virtual void draw(float x, float y, float scale){}
     virtual void toggleGUI(){}
     
     openNIManager * oni;

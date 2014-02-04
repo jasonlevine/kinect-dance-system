@@ -58,19 +58,12 @@ void testApp::update(){
 void testApp::draw(){
 	if (bCalibrate) {
         ofSetColor(255);
-        
-        ofPushMatrix();
-        ofTranslate(xOffset, yOffset);
-        ofTranslate(320, 240);
-        ofScale(scale, scale);
-        ofTranslate(-320, -240);
-        oni.draw();
-        ofPopMatrix();
+        oni.draw(xOffset, yOffset, scale);
 //        ofSetColor(255);
 //        flow.draw(0,480,640,480);
     }
     else {
-        scenes[currentScene]->draw(xOffset, yOffset, ofGetWidth(), ofGetHeight(), true);
+        scenes[currentScene]->draw(xOffset, yOffset, scale);
     }
     
 }

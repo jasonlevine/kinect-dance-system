@@ -14,7 +14,7 @@ void particleScene::setup(openNIManager * _oni, flowManager * _flow ){
     
     particles.setup(200, ofGetWidth(), ofGetHeight(), true, false);
     
-    scale = 0.375;
+    velMult = 0.375;
     threshold = 1;
     bReverse = false;
     bGenerate = true;
@@ -42,7 +42,7 @@ void particleScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addIntSlider("totalParticles", 1, 2000, 200, length-xInit, dim);
     gui->addIntSlider("maxParticles", 2, 5000, &particles.maxParticles, length-xInit, dim);
     gui->addSlider("threshold", 0.0, 100.0, &threshold, length-xInit, dim);
-    gui->addSlider("scale", 0.01, 2.0, &scale, length-xInit, dim);
+    gui->addSlider("velMult", 0.01, 2.0, &velMult, length-xInit, dim);
     gui->addLabelToggle("reverse", &bReverse);
     gui->addLabelToggle("bounce", &particles.bounce);
     gui->addLabelToggle("wrap", &particles.wrap);
@@ -81,7 +81,7 @@ void particleScene::update(int width, int height){
             if (flow->motion[i + flow->motion.size()/2].lengthSquared() > threshold) {
                 ofVec2f featMotion = flow->motion[i + flow->motion.size()/2];
                 
-                particles.add(flow->features[i] / 240. * height , featMotion * scale / 240. * height);
+                particles.add(flow->features[i], featMotion * velMult);
                 
             }
         }
@@ -92,7 +92,7 @@ void particleScene::update(int width, int height){
             for (int i = 0; i < particles.particles.size(); i++) {
                 ofVec2f featMotion = flow->motion[i % flow->motion.size()/2 + flow->motion.size()/2];
                 if (bReverse) featMotion *= -1;
-                particles.particles[i]->vel+= featMotion * scale / 240. * height;
+                particles.particles[i]->vel+= featMotion * velMult;
             }
         }
     }
@@ -106,13 +106,20 @@ void particleScene::update(int width, int height){
     particles.update(centroid.x, centroid.y);
 }
 
-void particleScene::draw(int x, int y, int width, int height, bool drawToScreen){
+void particleScene::draw(float x, float y, float scale){
+    ofPushMatrix();
+    ofTranslate(x, y);
+    ofTranslate(320, 240);
+    ofScale(scale, scale);
+    ofTranslate(-320, -240);
     particles.draw();
-    if (bDebug) {
-        for (int i = 0; i < particles.particles.size(); i++) {
-            cout << "particle[" << i << "].pos = " << particles.particles[i]->pos << endl;
-        }
-        bDebug = false;
-    }
-    bDebug = false;
+    ofPopMatrix();
+
+//    if (bDebug) {
+//        for (int i = 0; i < particles.particles.size(); i++) {
+//            cout << "particle[" << i << "].pos = " << particles.particles[i]->pos << endl;
+//        }
+//        bDebug = false;
+//    }
+//    bDebug = false;
 }

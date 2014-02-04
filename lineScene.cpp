@@ -96,7 +96,7 @@ void lineScene::update(int width, int height){
 
 }
 
-void lineScene::draw(int x, int y, int width, int height, bool drawToScreen){
+void lineScene::draw(float x, float y, float scale){
     
 //    if ( oni->isSkeleton() ) {
     ofEnableAntiAliasing();
@@ -106,6 +106,10 @@ void lineScene::draw(int x, int y, int width, int height, bool drawToScreen){
     ofSetColor(lineColor);
     
     ofPushMatrix();
+    ofTranslate(x, y);
+    ofTranslate(320, 240);
+    ofScale(scale, scale);
+    ofTranslate(-320, -240);
     if ( bDrawMoire) drawMoire();
     if ( bDrawBody ) drawBodyLines();
     ofPopMatrix();

@@ -17,7 +17,7 @@ class smokeScene : public scene {
 public:
     void setup(openNIManager * _oni, flowManager * _flow );
     void update(int width, int height);
-    void draw(int x, int y, int width, int height, bool drawToScreen);
+    void draw(float x, float y, float scale);
     
     openNIManager * oni;
     flowManager * flow;

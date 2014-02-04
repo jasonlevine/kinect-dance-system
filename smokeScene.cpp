@@ -146,7 +146,7 @@ void smokeScene::update(int width, int height){
 	fluidSolver.update();
 }
 
-void smokeScene::draw(int x, int y, int width, int height, bool drawToScreen){
+void smokeScene::draw(float x, float y, float scale){
 	ofPushStyle();
     ofSetBackgroundAuto(false);
     ofEnableAlphaBlending();

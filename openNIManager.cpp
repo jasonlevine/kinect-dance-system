@@ -112,21 +112,16 @@ void openNIManager::draw(float x, float y, float scale){
     
     ofSetColor(255, 255, 255);
     
-//    ofPushMatrix();
-//    // draw debug (ie., image, depth, skeleton)
-//    openNIDevice.drawDebug();
-//    ofPopMatrix();
-    
     ofPushMatrix();
-    // use a blend mode so we can see 'through' the mask(s)
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-    
+    ofTranslate(x, y);
+    ofTranslate(320, 240);
+    ofScale(scale, scale);
+    ofTranslate(-320, -240);
     ofImage maskImg = maskPix;
     maskImg.draw(0, 0);
-    
-    ofDisableBlendMode();
     ofPopMatrix();
-    
+
+
     // draw some info regarding frame counts etc
 	ofSetColor(0, 255, 0);
 	string msg = " MILLIS: " + ofToString(ofGetElapsedTimeMillis()) + " FPS: " + ofToString(ofGetFrameRate()) + " Device FPS: " + ofToString(openNIDevice.getFrameRate());

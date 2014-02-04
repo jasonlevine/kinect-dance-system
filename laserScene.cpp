@@ -54,30 +54,29 @@ void laserScene::update(int width, int height){
 
 }
 
-void laserScene::draw(int x, int y, int width, int height, bool drawToScreen){
+void laserScene::draw(float x, float y, float scale){
     ofPushStyle();
     ofBackground(bgColor);
     ofSetColor(lineColor);
     ofEnableAlphaBlending();
     
     ofPushMatrix();
-    ofTranslate((ofGetWidth() - ofGetHeight()) / 2, 0);
+    ofTranslate(x, y);
+    ofTranslate(320, 240);
+    ofScale(scale, scale);
+    ofTranslate(-320, -240);
+
     for (int i = 0; i < flow->current.size(); i++) {
         if (flow->motion[i + flow->motion.size()/2].lengthSquared() > threshold) {
             
             ofVec2f featMotion = flow->motion[i + flow->motion.size()/2];
             ofSetLineWidth(lineWidth + featMotion.lengthSquared() * lineWidthMult);
-//            float x1 = (flow->features[i].x) / 240 * height;
-//            float y1 = (flow->features[i].y) / 240 * height;
-//            float x2 = (flow->features[i].x + featMotion.x) / 240 * ofGetHeight();
-//            float y2 = (flow->features[i].y + featMotion.y) / 240 * ofGetHeight();
             
-            //                ofLine(x1,y1,x2,y2);
-            ofLine((flow->features[i] - featMotion * lineScale) / 240 * height,
-                   (flow->features[i] + featMotion * lineScale) / 240 * height);
-            
+            ofLine((flow->features[i] - featMotion * lineScale),
+                   (flow->features[i] + featMotion * lineScale));
         }
     }
+    
     ofPopMatrix();
     ofDisableAlphaBlending();
     ofPopStyle();
