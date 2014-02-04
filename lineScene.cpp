@@ -108,9 +108,10 @@ void lineScene::draw(float x, float y, float scale){
     
     ofPushMatrix();
     ofTranslate(x, y);
-    ofTranslate(640, 480);
+    ofTranslate(320, 240);
     ofScale(scale, scale);
-    ofTranslate(-640, -480);
+    ofTranslate(-320, -240);
+    ofScale(0.5, 0.5);
     if ( bDrawMoire) drawMoire();
     if ( bDrawBody ) drawBodyLines();
     ofPopMatrix();
@@ -133,8 +134,8 @@ void lineScene::drawLine(ofVec3f jointA, ofVec3f jointB){
     ofPushStyle();
     ofSetLineWidth(lineWidth);
     
-    ofLine(midpoint.x, midpoint.y, midpoint.x + diff.x * lineLength, midpoint.y + diff.y * lineLength);
-    ofLine(midpoint.x, midpoint.y, midpoint.x - diff.x * lineLength, midpoint.y - diff.y * lineLength);
+    ofLine(midpoint, midpoint + diff * linesLength);
+    ofLine(midpoint, midpoint - diff * linesLength);
     
     ofPopStyle();
 
@@ -158,8 +159,8 @@ void lineScene::drawLines(ofVec3f jointA, ofVec3f jointB, float spacing){
 
     ofPushMatrix();
     
-    ofLine(midpoint.x, midpoint.y, midpoint.x + diff.x * linesLength, midpoint.y + diff.y  * linesLength);
-    ofLine(midpoint.x, midpoint.y, midpoint.x - diff.x * linesLength, midpoint.y - diff.y  * linesLength);
+    ofLine(midpoint, midpoint + diff * linesLength);
+    ofLine(midpoint, midpoint - diff * linesLength);
     
     for( int i = 1; i < width / spacing; i++) {
         
