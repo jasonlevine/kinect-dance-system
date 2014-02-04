@@ -33,6 +33,10 @@ public:
     flowManager flow;
     postProcManager ppm;
     
+    
+    ofxUICanvas * gui;
+    
+    
     bool bDebug;
     bool bCalibrate;
     
@@ -42,19 +46,8 @@ public:
     
     //mapping
     float scale;
-    float xOffset, yOffset;
-    
-
-    
-    //rednering
-//    ofFbo fbo;
-//    
-//    int width, height, ppWidth, ppHeight;
-//    
-//    ofxPostProcessing post;
-//    vector<RenderPass::Ptr> renderPasses;
-//    
-//    float fadeAmt;
+//    float xOffset, yOffset;
+    ofPoint offset;
     
 };
 

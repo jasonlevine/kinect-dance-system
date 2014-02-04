@@ -37,45 +37,23 @@ void testApp::setup() {
     ofEnableAntiAliasing();
     
     scale = 1.0;
-    xOffset = yOffset = 0.0;
+//    xOffset = yOffset = 0.0;
+    offset.set(0,0);
     
-
+    //init gui dims
+    float dim = 16;
+    float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
+    float length = 255-xInit;
     
-    //graphics
-//    width = 1920;
-//    height = 1080;
-//    ppWidth = ofNextPow2(width);
-//    ppHeight = ofNextPow2(height);
-//    
-//    
-//    ofFbo::Settings s;
-//    s.width = ppWidth;
-//    s.height = ppHeight;
-//    s.textureTarget = GL_TEXTURE_2D;
-//    s.useDepth = true;
-//    s.depthStencilInternalFormat = GL_DEPTH_COMPONENT24;
-//    s.depthStencilAsTexture = true;
-//    s.internalformat = GL_RGBA32F;
-//    
-//    fbo.allocate(s);
-//    
-//    fbo.begin();
-//    ofClear(0);
-//    fbo.end();
-//    
-//    fadeAmt = 5;
-//    
-//    post.init(ppWidth, ppHeight);
-//    
-//    post.createPass<BloomPass>()->setEnabled(false);
-//    post.createPass<RimHighlightingPass>()->setEnabled(false);
-//    post.createPass<BloomPass>()->setEnabled(false);
-//    post.createPass<DofAltPass>()->setEnabled(false);
-//    post.createPass<ContrastPass>()->setEnabled(true);
-//    
-//    renderPasses = post.getPasses();
-//    post.setFlip(false);
-
+    //gui!
+    gui = new ofxUICanvas(length+xInit, 0, length+xInit, ofGetHeight());
+    
+    gui->addFPSSlider("FPS SLIDER", length-xInit, dim*.25, 60);
+    gui->addSpacer(length-xInit, 1);
+    gui->add2DPad("position", ofPoint(0,1920), ofPoint(0, 1080), &offset);
+    gui->addSlider("scale", 0.0, 3.0, &scale, length-xInit, dim);
+    gui->addSpacer(length-xInit, 1);
+    gui->addSlider("fadeAmt", 0.0, 255.0, &ppm.fadeAmt, length-xInit, dim);
     
 }
 
@@ -97,14 +75,14 @@ void testApp::draw(){
 	ofSetColor(255);
     
     if (bCalibrate) {
-        oni.draw(xOffset, yOffset, scale);
+        oni.draw(offset.x, offset.y, scale);
 //        ofSetColor(255);
 //        flow.draw(0,480,640,480);
     }
     else {
 
         ppm.begin();
-        scenes[currentScene]->draw(xOffset, yOffset, scale);
+        scenes[currentScene]->draw(offset.x, offset.y, scale);
         ppm.end();
         
         ppm.draw();
@@ -144,19 +122,19 @@ void testApp::keyPressed(int key){
             break;
             
         case OF_KEY_LEFT:
-            xOffset-=5;
+            offset.x-=5;
             break;
             
         case OF_KEY_RIGHT:
-            xOffset+=5;
+            offset.x+=5;
             break;
             
         case OF_KEY_UP:
-            yOffset-=5;
+            offset.y-=5;
             break;
             
         case OF_KEY_DOWN:
-            yOffset+=5;
+            offset.y+=5;
             break;
             
         case '-':
