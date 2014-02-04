@@ -3,10 +3,9 @@
 
 #include "ofMain.h"
 
-#include "ofxPostProcessing.h"
-
 #include "openNIManager.h"
 #include "flowManager.h"
+#include "postProcManager.h"
 
 #include "laserScene.h"
 #include "smokeScene.h"
@@ -32,6 +31,7 @@ public:
 
     openNIManager oni;
     flowManager flow;
+    postProcManager ppm;
     
     bool bDebug;
     bool bCalibrate;
@@ -44,15 +44,17 @@ public:
     float scale;
     float xOffset, yOffset;
     
+
+    
     //rednering
-    ofFbo fbo;
-    
-    int width, height, ppWidth, ppHeight;
-    
-    ofxPostProcessing post;
-    vector<RenderPass::Ptr> renderPasses;
-    
-    float fadeAmt;
+//    ofFbo fbo;
+//    
+//    int width, height, ppWidth, ppHeight;
+//    
+//    ofxPostProcessing post;
+//    vector<RenderPass::Ptr> renderPasses;
+//    
+//    float fadeAmt;
     
 };
 

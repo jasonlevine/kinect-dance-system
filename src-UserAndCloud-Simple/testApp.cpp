@@ -9,6 +9,7 @@ void testApp::setup() {
     
     oni.setup();
     flow.setup();
+    ppm.setup();
     
     laserScene * lasers = new laserScene;
     lasers->setup(&oni, &flow);
@@ -38,39 +39,42 @@ void testApp::setup() {
     scale = 1.0;
     xOffset = yOffset = 0.0;
     
-    width = 1920;
-    height = 1080;
-    ppWidth = ofNextPow2(width);
-    ppHeight = ofNextPow2(height);
+
     
     //graphics
-    ofFbo::Settings s;
-    s.width = ppWidth;
-    s.height = ppHeight;
-    s.textureTarget = GL_TEXTURE_2D;
-    s.useDepth = true;
-    s.depthStencilInternalFormat = GL_DEPTH_COMPONENT24;
-    s.depthStencilAsTexture = true;
-    s.internalformat = GL_RGBA32F;
-    
-    fbo.allocate(s);
-    
-    fbo.begin();
-    ofClear(0);
-    fbo.end();
-    
-    fadeAmt = 5;
-    
-    post.init(ppWidth, ppHeight);
-    
-    post.createPass<BloomPass>()->setEnabled(false);
-    post.createPass<RimHighlightingPass>()->setEnabled(false);
-    post.createPass<BloomPass>()->setEnabled(false);
-    post.createPass<DofAltPass>()->setEnabled(false);
-    post.createPass<ContrastPass>()->setEnabled(true);
-    
-    renderPasses = post.getPasses();
-    post.setFlip(false);
+//    width = 1920;
+//    height = 1080;
+//    ppWidth = ofNextPow2(width);
+//    ppHeight = ofNextPow2(height);
+//    
+//    
+//    ofFbo::Settings s;
+//    s.width = ppWidth;
+//    s.height = ppHeight;
+//    s.textureTarget = GL_TEXTURE_2D;
+//    s.useDepth = true;
+//    s.depthStencilInternalFormat = GL_DEPTH_COMPONENT24;
+//    s.depthStencilAsTexture = true;
+//    s.internalformat = GL_RGBA32F;
+//    
+//    fbo.allocate(s);
+//    
+//    fbo.begin();
+//    ofClear(0);
+//    fbo.end();
+//    
+//    fadeAmt = 5;
+//    
+//    post.init(ppWidth, ppHeight);
+//    
+//    post.createPass<BloomPass>()->setEnabled(false);
+//    post.createPass<RimHighlightingPass>()->setEnabled(false);
+//    post.createPass<BloomPass>()->setEnabled(false);
+//    post.createPass<DofAltPass>()->setEnabled(false);
+//    post.createPass<ContrastPass>()->setEnabled(true);
+//    
+//    renderPasses = post.getPasses();
+//    post.setFlip(false);
 
     
 }
@@ -99,15 +103,11 @@ void testApp::draw(){
     }
     else {
 
-        fbo.begin();
-        ofSetColor(0,0,0,fadeAmt);
-        ofRect(0,0,ofGetWidth(), ofGetHeight());
+        ppm.begin();
         scenes[currentScene]->draw(xOffset, yOffset, scale);
-        fbo.end();
+        ppm.end();
         
-        post.process(fbo);
-        ofSetColor(255);
-        post.draw(0,0);
+        ppm.draw();
     }
 }
 

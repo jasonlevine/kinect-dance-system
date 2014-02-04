@@ -133,6 +133,7 @@
 		90B275E618A16DE900494D40 /* ToonPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B275CB18A16DE900494D40 /* ToonPass.cpp */; };
 		90B275E718A16DE900494D40 /* VerticalTiltShifPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B275CD18A16DE900494D40 /* VerticalTiltShifPass.cpp */; };
 		90B275E818A16DE900494D40 /* ZoomBlurPass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B275CF18A16DE900494D40 /* ZoomBlurPass.cpp */; };
+		90B275EB18A196EA00494D40 /* postProcManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B275E918A196EA00494D40 /* postProcManager.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -650,6 +651,8 @@
 		90B275CE18A16DE900494D40 /* VerticalTiltShifPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerticalTiltShifPass.h; sourceTree = "<group>"; };
 		90B275CF18A16DE900494D40 /* ZoomBlurPass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ZoomBlurPass.cpp; sourceTree = "<group>"; };
 		90B275D018A16DE900494D40 /* ZoomBlurPass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomBlurPass.h; sourceTree = "<group>"; };
+		90B275E918A196EA00494D40 /* postProcManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postProcManager.cpp; sourceTree = SOURCE_ROOT; };
+		90B275EA18A196EA00494D40 /* postProcManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postProcManager.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -1493,6 +1496,8 @@
 				9035C814189EF4F100C7DC55 /* openNIManager.h */,
 				9035C8DB189F26A200C7DC55 /* flowManager.cpp */,
 				9035C8DC189F26A200C7DC55 /* flowManager.h */,
+				90B275E918A196EA00494D40 /* postProcManager.cpp */,
+				90B275EA18A196EA00494D40 /* postProcManager.h */,
 			);
 			name = managers;
 			sourceTree = "<group>";
@@ -1941,6 +1946,7 @@
 				90B2759618A0395100494D40 /* particleSystem.cpp in Sources */,
 				9035C963189F48C200C7DC55 /* ofxUIRotarySlider.cpp in Sources */,
 				9035C982189F4BFD00C7DC55 /* tinyxml.cpp in Sources */,
+				90B275EB18A196EA00494D40 /* postProcManager.cpp in Sources */,
 				9035C95C189F48C200C7DC55 /* ofxUIMovingGraph.cpp in Sources */,
 				9035C96C189F48C200C7DC55 /* ofxUITextInput.cpp in Sources */,
 				9035C844189EFAF800C7DC55 /* Flow.cpp in Sources */,
