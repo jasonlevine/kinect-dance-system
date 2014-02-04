@@ -77,7 +77,7 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addSlider("alpha", 0.0, 1.0, &lineColor.a, length-xInit, dim);
     
     gui->setVisible(false);
-
+//    gui->toggleVisible();
     
 //    gui->addSpacer(length-xInit, 1);
 //    gui->addLabelToggle("flip?", false);
@@ -101,9 +101,9 @@ void lineScene::draw(float x, float y, float scale){
     
 //    if ( oni->isSkeleton() ) {
     ofEnableAntiAliasing();
-    ofEnableAlphaBlending();
+//    ofEnableAlphaBlending();
     
-    ofBackground(bgColor);
+//    ofBackground(bgColor);
     ofSetColor(lineColor);
     
     ofPushMatrix();
@@ -116,7 +116,7 @@ void lineScene::draw(float x, float y, float scale){
     if ( bDrawBody ) drawBodyLines();
     ofPopMatrix();
 
-    ofDisableAlphaBlending();
+//    ofDisableAlphaBlending();
     ofDisableAntiAliasing();
 //    }
 

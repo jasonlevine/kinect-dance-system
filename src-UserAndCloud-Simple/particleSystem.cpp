@@ -122,7 +122,7 @@ void particleSystem::update(int mouseX, int mouseY) {
 void particleSystem::draw() {
 
 //    ofBackground(0);
-    ofEnableAlphaBlending();
+//    ofEnableAlphaBlending();
 //    ofNoFill();
 	for (int i = 0; i < particles.size(); i++){
 
@@ -144,7 +144,7 @@ void particleSystem::draw() {
 //        ofPopStyle();
 	}
 //    ofFill();
-    ofDisableAlphaBlending();
+//    ofDisableAlphaBlending();
 }
 
 

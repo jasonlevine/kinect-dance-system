@@ -155,7 +155,7 @@ void smokeScene::draw(float x, float y, float scale){
     
     ofPushStyle();
     ofSetBackgroundAuto(false);
-    ofEnableAlphaBlending();
+//    ofEnableAlphaBlending();
     
     if(drawFluid) {
         ofClear(0);

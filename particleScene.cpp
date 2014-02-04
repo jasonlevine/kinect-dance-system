@@ -107,7 +107,7 @@ void particleScene::update(int width, int height){
 }
 
 void particleScene::draw(float x, float y, float scale){
-    ofBackground(0);
+//    ofBackground(0);
     
     ofPushMatrix();
     ofTranslate(x, y);

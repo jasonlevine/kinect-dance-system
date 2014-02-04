@@ -56,9 +56,9 @@ void laserScene::update(int width, int height){
 
 void laserScene::draw(float x, float y, float scale){
     ofPushStyle();
-    ofBackground(bgColor);
+//    ofBackground(bgColor);
     ofSetColor(lineColor);
-    ofEnableAlphaBlending();
+//    ofEnableAlphaBlending();
     
     ofPushMatrix();
     ofTranslate(x, y);
@@ -78,6 +78,6 @@ void laserScene::draw(float x, float y, float scale){
     }
     
     ofPopMatrix();
-    ofDisableAlphaBlending();
+//    ofDisableAlphaBlending();
     ofPopStyle();
 }

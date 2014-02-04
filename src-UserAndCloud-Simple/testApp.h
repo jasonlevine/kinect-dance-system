@@ -52,6 +52,8 @@ public:
     ofxPostProcessing post;
     vector<RenderPass::Ptr> renderPasses;
     
+    float fadeAmt;
+    
 };
 
 #endif

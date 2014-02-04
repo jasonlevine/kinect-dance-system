@@ -53,6 +53,8 @@ void testApp::setup() {
     fbo.begin();
     ofClear(0);
     fbo.end();
+    
+    fadeAmt = 5;
 
     
 }
@@ -80,10 +82,14 @@ void testApp::draw(){
 //        flow.draw(0,480,640,480);
     }
     else {
+
         fbo.begin();
-        ofClear(0,0,0,0);
+        ofSetColor(0,0,0,fadeAmt);
+        ofRect(0,0,ofGetWidth(), ofGetHeight());
         scenes[currentScene]->draw(xOffset, yOffset, scale);
         fbo.end();
+        
+        ofSetColor(255);
         fbo.draw(0,0);
     }
 }
