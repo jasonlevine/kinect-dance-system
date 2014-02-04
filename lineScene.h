@@ -28,10 +28,10 @@ public:
     void drawMoire();
     
     float width, height;
-    float lineWidth;
-    float linesWidth;
+    float lineWidth, lineLength;
+    float linesWidth, linesLength;
     float distanceScale;
-    int alpha;
+    
     bool llArm, rlArm,
     luArm, ruArm,
     llLeg, rlLeg,

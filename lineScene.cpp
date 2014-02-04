@@ -21,7 +21,7 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     distanceScale = 10;
     lineWidth = 2;
     
-    alpha = 255;
+    lineLength = linesLength = 1000;
     
     llArm = true;
     rlArm = true;
@@ -46,11 +46,12 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addFPSSlider("FPS SLIDER", length-xInit, dim*.25, 60);
     gui->addSpacer(length-xInit, 1);
     gui->addSlider("lineWidth", 0.1, 10, &lineWidth, length-xInit, dim);
-    gui->addSlider("lineWidth", 0.1, 10, &linesWidth, length-xInit, dim);
+    gui->addSlider("lineLength", 1, 2000, &lineLength, length-xInit, dim);
+    gui->addSlider("linesWidth", 0.1, 10, &linesWidth, length-xInit, dim);
+    gui->addSlider("linesLength", 1, 2000, &linesLength, length-xInit, dim);
     gui->addSlider("distanceScale", 0.1, 1.0, &distanceScale, length-xInit, dim);
-//    gui->addIntSlider("fadeAmt", 0, 255, &fadeAmt, length-xInit, dim);
-    gui->addIntSlider("alpha", 0, 255, &alpha, length-xInit, dim);
-    gui->addSlider("smoothing", 0.1, 0.99, &skeletonSmoothing, length-xInit, dim);
+
+//    gui->addSlider("smoothing", 0.1, 0.99, &skeletonSmoothing, length-xInit, dim);
     gui->addSpacer(length-xInit, 1);
     gui->addLabelToggle("drawBody", &bDrawBody);
     gui->addLabelToggle("drawMoire", &bDrawMoire);
@@ -107,9 +108,9 @@ void lineScene::draw(float x, float y, float scale){
     
     ofPushMatrix();
     ofTranslate(x, y);
-    ofTranslate(320, 240);
+    ofTranslate(640, 480);
     ofScale(scale, scale);
-    ofTranslate(-320, -240);
+    ofTranslate(-640, -480);
     if ( bDrawMoire) drawMoire();
     if ( bDrawBody ) drawBodyLines();
     ofPopMatrix();
@@ -127,25 +128,23 @@ void lineScene::drawLine(ofVec3f jointA, ofVec3f jointB){
     diff.normalize();
     
     ofVec2f midpoint = ofVec2f((jointA.x + jointB.x) / 2, (jointA.y + jointB.y) / 2);
-    midpoint = midpoint / 480 * height;
+    midpoint = midpoint;
     
     ofPushStyle();
     ofSetLineWidth(lineWidth);
     
-    ofLine(midpoint.x, midpoint.y, midpoint.x + diff.x * width, midpoint.y + diff.y * height);
-    ofLine(midpoint.x, midpoint.y, midpoint.x - diff.x * width, midpoint.y - diff.y * height);
+    ofLine(midpoint.x, midpoint.y, midpoint.x + diff.x * lineLength, midpoint.y + diff.y * lineLength);
+    ofLine(midpoint.x, midpoint.y, midpoint.x - diff.x * lineLength, midpoint.y - diff.y * lineLength);
     
     ofPopStyle();
 
 }
 
 void lineScene::drawLines(ofVec3f jointA, ofVec3f jointB, float spacing){
-
     
     ofVec2f diff = ofVec2f((jointB.x - jointA.x), (jointB.y - jointA.y));
-    cout << "diff =  " << diff << endl;
     diff.normalize();
-     cout << "diffnorm =  " << diff << endl;
+
     ofVec2f midpoint = ofVec2f((jointA.x + jointB.x) / 2, (jointA.y + jointB.y) / 2);
     
     ofVec2f normal = diff.getRotated(90);
@@ -158,24 +157,23 @@ void lineScene::drawLines(ofVec3f jointA, ofVec3f jointB, float spacing){
     ofEnableAlphaBlending();
 
     ofPushMatrix();
-    //    ofTranslate(0, height);
     
-    ofLine(midpoint.x, midpoint.y, midpoint.x + diff.x * width, midpoint.y + diff.y * height);
-    ofLine(midpoint.x, midpoint.y, midpoint.x - diff.x * width, midpoint.y - diff.y * height);
+    ofLine(midpoint.x, midpoint.y, midpoint.x + diff.x * linesLength, midpoint.y + diff.y  * linesLength);
+    ofLine(midpoint.x, midpoint.y, midpoint.x - diff.x * linesLength, midpoint.y - diff.y  * linesLength);
     
     for( int i = 1; i < width / spacing; i++) {
         
         ofVec2f midpointB = midpoint + normal * spacing * i;
-        ofLine(midpointB.x, midpointB.y, midpointB.x + diff.x * width, midpointB.y + diff.y * height);
-        ofLine(midpointB.x, midpointB.y, midpointB.x - diff.x * width, midpointB.y - diff.y * height);
+        ofLine(midpointB.x, midpointB.y, midpointB.x + diff.x * linesLength, midpointB.y + diff.y * linesLength);
+        ofLine(midpointB.x, midpointB.y, midpointB.x - diff.x * linesLength, midpointB.y - diff.y * linesLength);
         
         midpointB = midpoint - normal * spacing * i;
-        ofLine(midpointB.x, midpointB.y, midpointB.x + diff.x * width, midpointB.y + diff.y * height);
-        ofLine(midpointB.x, midpointB.y, midpointB.x - diff.x * width, midpointB.y - diff.y * height);
+        ofLine(midpointB.x, midpointB.y, midpointB.x + diff.x * linesLength, midpointB.y + diff.y * linesLength);
+        ofLine(midpointB.x, midpointB.y, midpointB.x - diff.x * linesLength, midpointB.y - diff.y * linesLength);
     }
+    
     ofPopMatrix();
     ofDisableAlphaBlending();
-    
     ofPopStyle();
 
 }
