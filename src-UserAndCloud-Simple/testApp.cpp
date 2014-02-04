@@ -38,6 +38,11 @@ void testApp::setup() {
     scale = 1.0;
     xOffset = yOffset = 0.0;
     
+    width = 1920;
+    height = 1080;
+    ppWidth = ofNextPow2(width);
+    ppHeight = ofNextPow2(height);
+    
     //graphics
     ofFbo::Settings s;
     s.width = ppWidth;
@@ -55,6 +60,17 @@ void testApp::setup() {
     fbo.end();
     
     fadeAmt = 5;
+    
+    post.init(ppWidth, ppHeight);
+    
+    post.createPass<BloomPass>()->setEnabled(false);
+    post.createPass<RimHighlightingPass>()->setEnabled(false);
+    post.createPass<BloomPass>()->setEnabled(false);
+    post.createPass<DofAltPass>()->setEnabled(false);
+    post.createPass<ContrastPass>()->setEnabled(true);
+    
+    renderPasses = post.getPasses();
+    post.setFlip(false);
 
     
 }
@@ -89,8 +105,9 @@ void testApp::draw(){
         scenes[currentScene]->draw(xOffset, yOffset, scale);
         fbo.end();
         
+        post.process(fbo);
         ofSetColor(255);
-        fbo.draw(0,0);
+        post.draw(0,0);
     }
 }
 
