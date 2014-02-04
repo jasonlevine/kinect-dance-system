@@ -143,7 +143,6 @@ void smokeScene::update(int width, int height){
         }
     }
 
-    
 	fluidSolver.update();
 }
 

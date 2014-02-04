@@ -25,7 +25,7 @@ void laserScene::setup(openNIManager * _oni, flowManager * _flow ){
      float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
      float length = 255-xInit;
      
-     //gui!
+    //gui!
     gui = new ofxUICanvas(0, 0, length+xInit, ofGetHeight());
     
     gui->addFPSSlider("FPS SLIDER", length-xInit, dim*.25, 60);

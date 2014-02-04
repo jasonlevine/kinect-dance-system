@@ -83,7 +83,25 @@ void openNIManager::update(){
                 maskPix.resize(320, 240);
             }
 
-            
+//            if (user.isSkeleton()) {
+                headPos = user.getJoint(JOINT_HEAD).getProjectivePosition();
+                neckPos = user.getJoint(JOINT_NECK).getProjectivePosition();
+                torsoPos = user.getJoint(JOINT_TORSO).getProjectivePosition();
+                leftShoulderPos = user.getJoint(JOINT_LEFT_SHOULDER).getProjectivePosition();
+                rightShoulderPos = user.getJoint(JOINT_RIGHT_SHOULDER).getProjectivePosition();
+                leftHipPos = user.getJoint(JOINT_LEFT_HIP).getProjectivePosition();
+                rightHipPos = user.getJoint(JOINT_RIGHT_HIP).getProjectivePosition();
+                leftKneePos = user.getJoint(JOINT_LEFT_KNEE).getProjectivePosition();
+                rightKneePos = user.getJoint(JOINT_RIGHT_KNEE).getProjectivePosition();
+                leftFootPos = user.getJoint(JOINT_LEFT_FOOT).getProjectivePosition();
+                rightFootPos = user.getJoint(JOINT_RIGHT_FOOT).getProjectivePosition();
+                leftElbowPos = user.getJoint(JOINT_LEFT_ELBOW).getProjectivePosition();
+                leftHandPos = user.getJoint(JOINT_LEFT_HAND).getProjectivePosition();
+                rightElbowPos = user.getJoint(JOINT_RIGHT_ELBOW).getProjectivePosition();
+                rightHandPos = user.getJoint(JOINT_RIGHT_HAND).getProjectivePosition();
+                
+//            }
+
         }
     }
 }

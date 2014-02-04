@@ -9,6 +9,7 @@
 #include "laserScene.h"
 #include "smokeScene.h"
 #include "particleScene.h"
+#include "lineScene.h"
 
 class testApp : public ofBaseApp{
 

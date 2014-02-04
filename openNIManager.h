@@ -21,12 +21,13 @@ public:
     bool isNewFrame();
     bool isFound();
     bool isSkeleton();
-    
     void setDepthThresh();
-
     
-	void keyPressed  (int key);
+    ofVec3f getLeftElbowPos() { return leftElbowPos; }
+    ofVec3f getLeftHandPos() { return leftHandPos; }
+    
 
+	void keyPressed  (int key);
     void userEvent(ofxOpenNIUserEvent & event);
     
 	ofxOpenNI openNIDevice;
@@ -42,5 +43,25 @@ public:
     ofxCvGrayscaleImage grayImage; // grayscale depth image
 	ofxCvGrayscaleImage grayThreshNear; // the near thresholded image
 	ofxCvGrayscaleImage grayThreshFar; // the far thresholded image
+    
+    //center
+    
+    ofVec3f headPos, neckPos, torsoPos;
+    
+    //upper body
+    ofVec3f leftShoulderPos, rightShoulderPos;
+    
+    ofVec3f leftElbowPos, rightElbowPos;
+    
+    ofVec3f leftHandPos, rightHandPos;
+    
+    //lower body
+    
+    ofVec3f leftHipPos, rightHipPos;
+    
+    ofVec3f leftKneePos, rightKneePos;
+    
+    ofVec3f leftFootPos, rightFootPos;
+
     
 };

@@ -108,6 +108,7 @@
 		90B2758A18A0385400494D40 /* particleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B2758818A0385400494D40 /* particleScene.cpp */; };
 		90B2759518A0395100494D40 /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B2759118A0395100494D40 /* particle.cpp */; };
 		90B2759618A0395100494D40 /* particleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B2759318A0395100494D40 /* particleSystem.cpp */; };
+		90B2759B18A0614F00494D40 /* lineScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 90B2759918A0614F00494D40 /* lineScene.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -574,6 +575,8 @@
 		90B2759218A0395100494D40 /* particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = particle.h; path = "src-UserAndCloud-Simple/particle.h"; sourceTree = SOURCE_ROOT; };
 		90B2759318A0395100494D40 /* particleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = particleSystem.cpp; path = "src-UserAndCloud-Simple/particleSystem.cpp"; sourceTree = SOURCE_ROOT; };
 		90B2759418A0395100494D40 /* particleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = particleSystem.h; path = "src-UserAndCloud-Simple/particleSystem.h"; sourceTree = SOURCE_ROOT; };
+		90B2759918A0614F00494D40 /* lineScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lineScene.cpp; sourceTree = SOURCE_ROOT; };
+		90B2759A18A0614F00494D40 /* lineScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lineScene.h; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -1405,6 +1408,7 @@
 				90B2758618A037CC00494D40 /* laserScene */,
 				90B2758718A037D700494D40 /* smokeScene */,
 				90B2759818A0396600494D40 /* particleScene */,
+				90B2759D18A065F900494D40 /* lineScene */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -1547,6 +1551,15 @@
 				90B2759718A0395700494D40 /* particles */,
 			);
 			name = particleScene;
+			sourceTree = "<group>";
+		};
+		90B2759D18A065F900494D40 /* lineScene */ = {
+			isa = PBXGroup;
+			children = (
+				90B2759918A0614F00494D40 /* lineScene.cpp */,
+				90B2759A18A0614F00494D40 /* lineScene.h */,
+			);
+			name = lineScene;
 			sourceTree = "<group>";
 		};
 		BB4B014C10F69532006C3DED /* addons */ = {
@@ -1793,6 +1806,7 @@
 				9035C8D6189EFF1500C7DC55 /* ofxCvImage.cpp in Sources */,
 				9035C992189F5DB600C7DC55 /* MSAFluidDrawerBase.cpp in Sources */,
 				9035C96D189F48C200C7DC55 /* ofxUIToggle.cpp in Sources */,
+				90B2759B18A0614F00494D40 /* lineScene.cpp in Sources */,
 				9035C948189F48C200C7DC55 /* ofxUIBiLabelSlider.cpp in Sources */,
 				9035C953189F48C200C7DC55 /* ofxUIImageButton.cpp in Sources */,
 				9035C96E189F48C200C7DC55 /* ofxUIToggleMatrix.cpp in Sources */,

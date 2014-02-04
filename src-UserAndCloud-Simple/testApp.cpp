@@ -22,8 +22,12 @@ void testApp::setup() {
     particles->setup(&oni, &flow);
     scenes.push_back(particles);
     
+    lineScene * lines = new lineScene;
+    lines->setup(&oni, &flow);
+    scenes.push_back(lines);
+    
     currentScene = 2;
-    numScenes = 3;
+    numScenes = 4;
     
     bDebug = false;
     bCalibrate = false;
@@ -88,6 +92,7 @@ void testApp::keyPressed(int key){
         case 's':
             currentScene++;
             currentScene%=numScenes;
+            if (currentScene == 3) oni.bUseDepth = false;
             cout << "currentScene = " << currentScene << endl;
             break;
     }
