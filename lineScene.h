@@ -43,7 +43,7 @@ public:
     bool bDrawBody, bDrawMoire;
     float skeletonSmoothing;
     
-    ofFloatColor bgColor;
+//    ofFloatColor bgColor;
     ofFloatColor lineColor;
     
 };

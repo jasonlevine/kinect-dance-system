@@ -30,12 +30,12 @@ void postProcManager::setup() {
     ofClear(0);
     fbo.end();
     
-    fadeAmt = 5;
+    fadeAmt = 0.1;
     
     post.init(ppWidth, ppHeight);
     
     post.createPass<BloomPass>()->setEnabled(false);
-    post.createPass<RimHighlightingPass>()->setEnabled(true);
+    post.createPass<RimHighlightingPass>()->setEnabled(false);
     post.createPass<BloomPass>()->setEnabled(false);
     post.createPass<DofAltPass>()->setEnabled(false);
     post.createPass<ContrastPass>()->setEnabled(true);

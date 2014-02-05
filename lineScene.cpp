@@ -32,7 +32,7 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     luLeg = true;
     ruLeg = true;
     
-    bgColor.set(0.0);
+//    bgColor.set(0.0);
     lineColor.set(1.0);
     
     //init gui dims
@@ -65,11 +65,11 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addLabelToggle("luLeg", &luLeg);
     gui->addLabelToggle("ruLeg", &ruLeg);
     gui->addSpacer(length-xInit, 1);
-    gui->addLabel("BACKGROUND");
-    gui->addSlider("red", 0.0, 1.0, &bgColor.r, length-xInit, dim);
-    gui->addSlider("green", 0.0, 1.0, &bgColor.g, length-xInit, dim);
-    gui->addSlider("blue", 0.0, 1.0, &bgColor.b, length-xInit, dim);
-    gui->addSlider("alpha", 0.0, 1.0, &bgColor.a, length-xInit, dim);
+//    gui->addLabel("BACKGROUND");
+//    gui->addSlider("red", 0.0, 1.0, &bgColor.r, length-xInit, dim);
+//    gui->addSlider("green", 0.0, 1.0, &bgColor.g, length-xInit, dim);
+//    gui->addSlider("blue", 0.0, 1.0, &bgColor.b, length-xInit, dim);
+//    gui->addSlider("alpha", 0.0, 1.0, &bgColor.a, length-xInit, dim);
     gui->addLabel("LINES");
     gui->addSlider("red", 0.0, 1.0, &lineColor.r, length-xInit, dim);
     gui->addSlider("green", 0.0, 1.0, &lineColor.g, length-xInit, dim);

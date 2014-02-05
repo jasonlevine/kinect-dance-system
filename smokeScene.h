@@ -48,7 +48,7 @@ public:
     
     float threshold;
     
-    ofFloatColor bgColor;
+//    ofFloatColor bgColor;
     ofFloatColor fluidColor;
     ofFloatColor particleColor;
 

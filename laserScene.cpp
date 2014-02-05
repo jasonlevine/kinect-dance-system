@@ -17,8 +17,9 @@ void laserScene::setup(openNIManager * _oni, flowManager * _flow ){
     lineWidth = 1;
     lineWidthMult = 1;
     
-    bgColor.set(0.,0.,0.,1.0);
+//    bgColor.set(0.,0.,0.,1.0);
     lineColor.set(1.,1.,1.,0.5);
+//    bgColorChanged = true;
     
     //init gui dims
      float dim = 16;
@@ -36,11 +37,10 @@ void laserScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addSlider("line width", 1.0, 20.0, &lineWidth, length-xInit, dim);
     gui->addSlider("line width mult", 0.0, 2.0, &lineWidthMult, length-xInit, dim);
     gui->addSpacer(length-xInit, 1);
-    gui->addLabel("BACKGROUND");
-    gui->addSlider("red", 0.0, 1.0, &bgColor.r, length-xInit, dim);
-    gui->addSlider("green", 0.0, 1.0, &bgColor.g, length-xInit, dim);
-    gui->addSlider("blue", 0.0, 1.0, &bgColor.b, length-xInit, dim);
-    gui->addSlider("alpha", 0.0, 1.0, &bgColor.a, length-xInit, dim);
+//    gui->addLabel("BACKGROUND");
+//    gui->addSlider("bgred", 0.0, 1.0, &bgColor.r, length-xInit, dim);
+//    gui->addSlider("bggreen", 0.0, 1.0, &bgColor.g, length-xInit, dim);
+//    gui->addSlider("bgblue", 0.0, 1.0, &bgColor.b, length-xInit, dim);
     gui->addLabel("LASERS");
     gui->addSlider("red", 0.0, 1.0, &lineColor.r, length-xInit, dim);
     gui->addSlider("green", 0.0, 1.0, &lineColor.g, length-xInit, dim);
@@ -49,7 +49,18 @@ void laserScene::setup(openNIManager * _oni, flowManager * _flow ){
     
     gui->setVisible(false);
     gui->setDrawBack(false);
+    
+//    ofAddListener(gui->newGUIEvent,this,&laserScene::guiEvent);
 }
+
+//void laserScene::guiEvent(ofxUIEventArgs &e){
+//    string name = e.widget->getName();
+//	int kind = e.widget->getKind();
+//    
+//    if(name == "bgred" || name == "bggreen" || name == "bgblue" ) {
+//        bgColorChanged = true;
+//    }
+//}
 
 void laserScene::update(int width, int height){
 
@@ -57,9 +68,7 @@ void laserScene::update(int width, int height){
 
 void laserScene::draw(float x, float y, float scale){
     ofPushStyle();
-//    ofBackground(bgColor);
     ofSetColor(lineColor);
-//    ofEnableAlphaBlending();
     
     ofPushMatrix();
     ofTranslate(x, y);
@@ -79,6 +88,5 @@ void laserScene::draw(float x, float y, float scale){
     }
     
     ofPopMatrix();
-//    ofDisableAlphaBlending();
     ofPopStyle();
 }

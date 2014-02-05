@@ -15,11 +15,14 @@ public:
     void setup(openNIManager * _oni, flowManager * _flow );
     void update(int width, int height);
     void draw(float x, float y, float scale);
-
+    
+    
+    
     openNIManager * oni;
     flowManager * flow;
     
     ofxUICanvas *gui;
+//    void guiEvent(ofxUIEventArgs &e);
     void toggleGUI(){ gui->toggleVisible(); }
     void hideGUI(){ gui->setVisible(false); }
     void saveGUI( string filename ) { gui->saveSettings(filename); }
@@ -30,6 +33,7 @@ public:
     float lineWidth;
     float lineWidthMult;
     
-    ofFloatColor bgColor, lineColor;
+    ofFloatColor lineColor;
+//    bool bgColorChanged;
 
 };

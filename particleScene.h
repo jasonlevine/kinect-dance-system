@@ -35,5 +35,5 @@ public:
     
     int alpha;
 
-    ofFloatColor bgColor, particleColor;
+    ofFloatColor particleColor;
 };

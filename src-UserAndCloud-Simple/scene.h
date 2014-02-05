@@ -26,5 +26,8 @@ public:
     flowManager * flow;
     
     ofxUICanvas *gui;
+    
+//    ofFloatColor bgColor;
+//    bool bgColorChanged;
 
 };

@@ -23,9 +23,13 @@ public:
     
     float fadeAmt;
     
-    void begin() {
+    void begin(ofFloatColor bgColor, bool bgColorChanged) {
         fbo.begin();
-        ofSetColor(0,0,0,fadeAmt);
+        if (!bgColorChanged) {
+            bgColor.a = fadeAmt;
+            bgColorChanged = false;
+        }
+        ofSetColor(bgColor);
         ofRect(0,0,ofGetWidth(),ofGetHeight());
     }
     

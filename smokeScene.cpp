@@ -30,7 +30,7 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
     threshold           = 0;
     
     
-    bgColor.set(13, 13, 26);
+//    bgColor.set(13, 13, 26);
     fluidColor.set(255,0,0);
     particleColor.set(0,255,0);
     
@@ -67,6 +67,10 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
 	gui->addToggle("fs.wrapX", &fluidSolver.wrap_x);
 	gui->addToggle("fs.wrapY", &fluidSolver.wrap_y);
     gui->addSpacer(length-xInit, 1);
+//    gui->addLabel("BACKGROUND");
+//    gui->addSlider("red", 0.0, 1.0, &bgColor.r, length-xInit, dim);
+//    gui->addSlider("green", 0.0, 1.0, &bgColor.g, length-xInit, dim);
+//    gui->addSlider("blue", 0.0, 1.0, &bgColor.b, length-xInit, dim);
     gui->addLabel("FLUID");
     gui->addSlider("red", 0.0, 1.0, &fluidColor.r, length-xInit, dim);
     gui->addSlider("green", 0.0, 1.0, &fluidColor.g, length-xInit, dim);

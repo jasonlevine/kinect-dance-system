@@ -54,10 +54,23 @@ void particleScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addIntSlider("alpha", 0, 255, &particles.alpha, length-xInit, dim);
     gui->addLabelToggle("circles", &particles.drawCircles);
     gui->addLabelToggle("lines", &particles.drawLines);
+    
+    gui->addSpacer(length-xInit, 1);
+//    gui->addLabel("BACKGROUND");
+//    gui->addSlider("red", 0.0, 1.0, &bgColor.r, length-xInit, dim);
+//    gui->addSlider("green", 0.0, 1.0, &bgColor.g, length-xInit, dim);
+//    gui->addSlider("blue", 0.0, 1.0, &bgColor.b, length-xInit, dim);
+    gui->addLabel("PARTICLES");
+    gui->addSlider("red", 0.0, 1.0, &particleColor.r, length-xInit, dim);
+    gui->addSlider("green", 0.0, 1.0, &particleColor.g, length-xInit, dim);
+    gui->addSlider("blue", 0.0, 1.0, &particleColor.b, length-xInit, dim);
+    gui->addSlider("alpha", 0.0, 1.0, &particleColor.a, length-xInit, dim);
 
     gui->setDrawBack(false);
-//    ofAddListener(gui->newGUIEvent,this,&particleScene::guiEvent);
+    
     gui->setVisible(false);
+    
+//    ofAddListener(gui->newGUIEvent,this,&particleScene::guiEvent);
 }
 
 

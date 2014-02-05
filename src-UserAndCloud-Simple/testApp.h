@@ -49,6 +49,9 @@ public:
     int numScenes;
     vector<scene*> scenes;
     
+    ofFloatColor bgColor;
+    bool bgColorChanged;
+    
     //mapping
     float scale;
     ofPoint offset;

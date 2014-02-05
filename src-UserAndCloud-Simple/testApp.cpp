@@ -33,7 +33,10 @@ void testApp::setup() {
     bDebug = false;
     bCalibrate = true;
     
-    ofBackground(25);
+    bgColor.set(1.0,0.0,0.0);
+    ofBackground(bgColor);
+    bgColorChanged = false;
+    
     ofEnableAntiAliasing();
     
     scale = 1.0;
@@ -66,7 +69,7 @@ void testApp::draw(){
     }
     else {
         ofEnableAlphaBlending();
-        ppm.begin();
+        ppm.begin(bgColor, bgColorChanged);
         scenes[currentScene]->draw(offset.x, offset.y, scale);
         ppm.end();
         
@@ -74,6 +77,8 @@ void testApp::draw(){
 //        ppm.fbo.draw(0,0);
         
         ppm.draw();
+        
+        bgColorChanged = false;
     }
 }
 
@@ -146,6 +151,11 @@ void testApp::keyPressed(int key){
             gui->saveSettings(filename);
             break;
         }
+            
+        case 'f':
+            ofToggleFullscreen();
+            break;
+
     }
 }
 
@@ -165,9 +175,13 @@ void testApp::setupGUI(){
     gui->addSlider("scale", 0.0, 5.0, &scale, length-xInit, dim);
     gui->addSpacer(length-xInit, 1);
     gui->addIntSlider("scene", 0, numScenes-1, &currentScene);
+    gui->addLabel("BACKGROUND");
+    gui->addSlider("bgred", 0.0, 1.0, &bgColor.r, length-xInit, dim);
+    gui->addSlider("bggreen", 0.0, 1.0, &bgColor.g, length-xInit, dim);
+    gui->addSlider("bgblue", 0.0, 1.0, &bgColor.b, length-xInit, dim);
     gui->addSpacer(length-xInit, 1);
     gui->addLabel("POST");
-    gui->addSlider("fadeAmt", 0.0, 255.0, &ppm.fadeAmt, length-xInit, dim);
+    gui->addSlider("fadeAmt", 0.0, 1.0, &ppm.fadeAmt, length-xInit, dim);
     gui->addLabelToggle("flip?", false);
     gui->addLabelToggle("bloom", false);
     gui->addLabelToggle("rims", false);
@@ -208,7 +222,10 @@ void testApp::guiEvent(ofxUIEventArgs &e){
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
     
-    if(name == "flip?")
+    if(name == "bgred" || name == "bggreen" || name == "bgblue" ) {
+        bgColorChanged = true;
+    }
+    else if(name == "flip?")
 	{
 		ofxUILabelToggle *toggle = (ofxUILabelToggle *) e.widget;
         ppm.post.setFlip(toggle->getValue());
