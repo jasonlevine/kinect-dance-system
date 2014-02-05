@@ -76,6 +76,7 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addSlider("blue", 0.0, 1.0, &lineColor.b, length-xInit, dim);
     gui->addSlider("alpha", 0.0, 1.0, &lineColor.a, length-xInit, dim);
     
+    gui->setDrawBack(false);
     gui->setVisible(false);
 //    gui->toggleVisible();
     

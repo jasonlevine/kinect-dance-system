@@ -21,6 +21,9 @@ public:
 	void draw();
     void exit();
     
+    void setupGUI();
+    void guiEvent(ofxUIEventArgs &e);
+    
 	void keyPressed  (int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y );
@@ -33,9 +36,11 @@ public:
     flowManager flow;
     postProcManager ppm;
     
-    
     ofxUICanvas * gui;
+    ofxUICanvas * gui2;
+    ofxUIDropDownList *ddl;
     
+    float brightness, contrast;
     
     bool bDebug;
     bool bCalibrate;
@@ -46,7 +51,6 @@ public:
     
     //mapping
     float scale;
-//    float xOffset, yOffset;
     ofPoint offset;
     
 };

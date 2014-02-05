@@ -17,7 +17,7 @@ void openNIManager::setup() {
     openNIDevice.addImageGenerator();
     openNIDevice.addDepthGenerator();
     openNIDevice.setDepthColoring(COLORING_GREY);
-    openNIDevice.setRegister(true);
+    openNIDevice.setRegister(false);
     openNIDevice.setMirror(true);
     openNIDevice.addUserGenerator();
     openNIDevice.setMaxNumUsers(2);

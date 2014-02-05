@@ -22,7 +22,9 @@ public:
     
     ofxUICanvas * gui;
     void toggleGUI(){ gui->toggleVisible(); }
+    void hideGUI(){ gui->setVisible(false); }
     
+    //----------------------------------
     particleSystem particles;
     
     bool bDebug, bGenerate, bReverse;

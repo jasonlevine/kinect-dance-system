@@ -48,6 +48,7 @@ void laserScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addSlider("alpha", 0.0, 1.0, &lineColor.a, length-xInit, dim);
     
     gui->setVisible(false);
+    gui->setDrawBack(false);
 }
 
 void laserScene::update(int width, int height){

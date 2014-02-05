@@ -187,7 +187,7 @@ void particle::update(int tailLength){
 //------------------------------------------------------------
 void particle::draw(){
     ofPushStyle();
-    ofSetColor(col, col * 0.9, col * 0.8, 127);
+//    ofSetColor(1.0, 0.9, 0.8, col);
     ofNoFill();
     ofSetLineWidth(size + vel.lengthSquared() * 0.001);
     ofBeginShape();

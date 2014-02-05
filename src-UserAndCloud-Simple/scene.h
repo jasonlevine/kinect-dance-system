@@ -18,6 +18,7 @@ public:
     virtual void update(int width, int height){}
     virtual void draw(float x, float y, float scale){}
     virtual void toggleGUI(){}
+    virtual void hideGUI(){}
     
     openNIManager * oni;
     flowManager * flow;

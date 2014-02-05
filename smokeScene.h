@@ -24,6 +24,7 @@ public:
     
     ofxUICanvas * gui;
     void toggleGUI(){ gui->toggleVisible(); }
+    void hideGUI(){ gui->setVisible(false); }
     
     //----------------------------
     

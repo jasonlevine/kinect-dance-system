@@ -59,18 +59,8 @@ void particleScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addIntSlider("alpha", 0, 255, &particles.alpha, length-xInit, dim);
     gui->addLabelToggle("circles", &particles.drawCircles);
     gui->addLabelToggle("lines", &particles.drawLines);
-    gui->addSpacer(length-xInit, 1);
-    
-    gui->addLabelToggle("flip?", false);
-    gui->addLabelToggle("bloom", false);
-    gui->addLabelToggle("rims", false);
-    gui->addLabelToggle("bloom2", false);
-    gui->addLabelToggle("dof", false);
-    gui->addSpacer(length-xInit, 1);
-    gui->addSlider("brightness", 0.0, 10.0, &brightness, length-xInit, dim);
-    gui->addSlider("contrast", 0.0, 5.0, &contrast, length-xInit, dim);
-    gui->addLabelButton("reset bri/con", false);
-    
+
+    gui->setDrawBack(false);
 //    ofAddListener(gui->newGUIEvent,this,&particleScene::guiEvent);
     gui->setVisible(false);
 }
