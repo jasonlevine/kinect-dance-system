@@ -19,6 +19,8 @@ public:
     virtual void draw(float x, float y, float scale){}
     virtual void toggleGUI(){}
     virtual void hideGUI(){}
+    virtual void saveGUI(string filename){}
+    virtual void loadGUI(string filename){}
     
     openNIManager * oni;
     flowManager * flow;

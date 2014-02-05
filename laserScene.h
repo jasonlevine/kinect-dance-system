@@ -22,6 +22,8 @@ public:
     ofxUICanvas *gui;
     void toggleGUI(){ gui->toggleVisible(); }
     void hideGUI(){ gui->setVisible(false); }
+    void saveGUI( string filename ) { gui->saveSettings(filename); }
+    void loadGUI( string filename ) { gui->loadSettings(filename); }
     
     float threshold;
     float lineScale;

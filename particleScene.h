@@ -23,6 +23,8 @@ public:
     ofxUICanvas * gui;
     void toggleGUI(){ gui->toggleVisible(); }
     void hideGUI(){ gui->setVisible(false); }
+    void saveGUI( string filename ) { gui->saveSettings(filename); }
+    void loadGUI( string filename ) { gui->loadSettings(filename); }
     
     //----------------------------------
     particleSystem particles;
@@ -31,9 +33,7 @@ public:
     
     float threshold, velMult;
     
-    int fadeAmt;
     int alpha;
-    float brightness;
-	float contrast;
-    
+
+    ofFloatColor bgColor, particleColor;
 };

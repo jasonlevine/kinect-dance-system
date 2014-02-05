@@ -187,6 +187,7 @@ void testApp::setupGUI(){
     
     string path = "presets/";
     ofDirectory dir(path);
+    dir.allowExt("xml");
     dir.listDir();
     
     vector<string> presets;
@@ -255,8 +256,13 @@ void testApp::guiEvent(ofxUIEventArgs &e){
     else if (name == "save preset") {
         ofxUILabelButton *button = (ofxUILabelButton *) e.widget;
         if (button->getValue()) {
-            string filename = "presets/" + ofGetTimestampString() + ".xml";
+            string timeStamp = ofGetTimestampString();
+            string filename = "presets/" + timeStamp + ".xml";
             gui->saveSettings(filename);
+            
+            string sceneFilename = filename + ".scene";
+            scenes[currentScene]->saveGUI(sceneFilename);
+            
             ddl->addToggle(filename);
         }
     }
@@ -268,7 +274,7 @@ void testApp::guiEvent(ofxUIEventArgs &e){
         {
             string presetName = selected[0]->getName();
             gui->loadSettings(presetName);
-            
+            scenes[currentScene]->loadGUI(presetName + ".scene");
             //reset bri/con
             shared_ptr<ContrastPass> contrastPass = static_pointer_cast<ContrastPass>(ppm.renderPasses[4]);
             contrastPass->setContrast( 1.0 );

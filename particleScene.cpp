@@ -18,10 +18,6 @@ void particleScene::setup(openNIManager * _oni, flowManager * _flow ){
     threshold = 1;
     bReverse = false;
     bGenerate = true;
-    fadeAmt = 255;
-    brightness = 1.0;
-	contrast = 1.0;
-    
     
     
     //init gui dims
@@ -55,7 +51,6 @@ void particleScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addSlider("baseSize", 1, 10, &particles.baseSize, length-xInit, dim);
     gui->addSlider("sizeMod", 0.0001, 0.1, &particles.sizeMod, length-xInit, dim);
     gui->addIntSlider("tailLength", 1, 25, &particles.tailLength, length-xInit, dim);
-    gui->addIntSlider("fadeAmt", 0, 255, &fadeAmt, length-xInit, dim);
     gui->addIntSlider("alpha", 0, 255, &particles.alpha, length-xInit, dim);
     gui->addLabelToggle("circles", &particles.drawCircles);
     gui->addLabelToggle("lines", &particles.drawLines);
@@ -65,24 +60,80 @@ void particleScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->setVisible(false);
 }
 
+
+
+
 void particleScene::update(int width, int height){
+//    
+//    if (bGenerate) {
+//        for (int i = 0; i < flow->features.size(); i++) {
+//            if (flow->motion[i + flow->motion.size()/2].lengthSquared() > threshold) {
+//                ofVec2f featMapped;
+//                featMapped.x = ((flow->features[i].x - 160) * scale + 160 + x);
+//                featMapped.y = ((flow->features[i].y - 120) * scale + 120 + y);
+//                
+//                ofVec2f featVel;
+//                featVel.x = flow->motion[i + flow->motion.size()/2].x * scale;
+//                featVel.y = flow->motion[i + flow->motion.size()/2].y * scale;
+//                
+//                particles.add(featMapped, featVel * velMult);
+//                
+//            }
+//        }
+//
+//    }
+//    else {
+//        if (flow->motion.size() > 0) {
+//            for (int i = 0; i < particles.particles.size(); i++) {
+//                ofVec2f featVel;
+//                featVel.x = flow->motion[i + flow->motion.size()/2].x * scale;
+//                featVel.y = flow->motion[i + flow->motion.size()/2].y * scale;
+//                
+//                
+//                if (bReverse) featVel *= -1;
+//                particles.particles[i]->vel+= featVel * velMult;
+//            }
+//        }
+//    }
+//    
+//    ofVec2f centroid(0,0);
+//    for (int i = 0; i < flow->features.size(); i++) {
+//        centroid+=flow->features[i];
+//    }
+//    centroid/=flow->features.size();
+//    
+//    particles.update(centroid.x, centroid.y);
+}
+
+void particleScene::draw(float x, float y, float scale){
+// moved here for convenience
     if (bGenerate) {
         for (int i = 0; i < flow->features.size(); i++) {
             if (flow->motion[i + flow->motion.size()/2].lengthSquared() > threshold) {
-                ofVec2f featMotion = flow->motion[i + flow->motion.size()/2];
+                ofVec2f featMapped;
+                featMapped.x = ((flow->features[i].x - 160) * scale + 160 + x);
+                featMapped.y = ((flow->features[i].y - 120) * scale + 120 + y);
                 
-                particles.add(flow->features[i], featMotion * velMult);
+                ofVec2f featVel;
+                featVel.x = flow->motion[i + flow->motion.size()/2].x * scale;
+                featVel.y = flow->motion[i + flow->motion.size()/2].y * scale;
+                
+                particles.add(featMapped, featVel * velMult);
                 
             }
         }
-
+        
     }
     else {
         if (flow->motion.size() > 0) {
             for (int i = 0; i < particles.particles.size(); i++) {
-                ofVec2f featMotion = flow->motion[i % flow->motion.size()/2 + flow->motion.size()/2];
-                if (bReverse) featMotion *= -1;
-                particles.particles[i]->vel+= featMotion * velMult;
+                ofVec2f featVel;
+                featVel.x = flow->motion[i + flow->motion.size()/2].x * scale;
+                featVel.y = flow->motion[i + flow->motion.size()/2].y * scale;
+                
+                
+                if (bReverse) featVel *= -1;
+                particles.particles[i]->vel+= featVel * velMult;
             }
         }
     }
@@ -94,18 +145,17 @@ void particleScene::update(int width, int height){
     centroid/=flow->features.size();
     
     particles.update(centroid.x, centroid.y);
-}
-
-void particleScene::draw(float x, float y, float scale){
-//    ofBackground(0);
+    particles.draw(particleColor);
+///draw
     
-    ofPushMatrix();
-    ofTranslate(x, y);
-    ofTranslate(160, 120);
-    ofScale(scale, scale);
-    ofTranslate(-160, -120);
-    particles.draw();
-    ofPopMatrix();
+//    
+//    ofPushMatrix();
+//    ofTranslate(x, y);
+//    ofTranslate(160, 120);
+//    ofScale(scale, scale);
+//    ofTranslate(-160, -120);
+  
+//    ofPopMatrix();
 
 //    if (bDebug) {
 //        for (int i = 0; i < particles.particles.size(); i++) {

@@ -10,7 +10,7 @@ public:
     ofVec2f vel;
     ofVec2f frc;// frc is also know as acceleration (newton says "f=ma")
 
-    float col; 
+    float alpha;
     float size;
 
     particle();
@@ -27,7 +27,7 @@ public:
     
     void setInitialCondition(float px, float py, float vx, float vy);
     void update(int tailLength);
-    void draw();
+    void draw(ofFloatColor col);
 
     void bounceOffWalls(float minx, float miny, float maxx, float maxy);
     void wrapAround(float minx, float miny, float maxx, float maxy);

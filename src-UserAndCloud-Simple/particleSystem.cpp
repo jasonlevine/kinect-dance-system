@@ -119,7 +119,7 @@ void particleSystem::update(int mouseX, int mouseY) {
 }
 
 //--------------------------------------------------------------
-void particleSystem::draw() {
+void particleSystem::draw(ofFloatColor col) {
 
 //    ofBackground(0);
 //    ofEnableAlphaBlending();
@@ -127,7 +127,7 @@ void particleSystem::draw() {
 	for (int i = 0; i < particles.size(); i++){
 
 //        ofPushStyle();
-        ofSetColor(particles[i]->col, particles[i]->col * 0.9, particles[i]->col * 0.8, alpha);
+        ofSetColor(col);
         
         ofNoFill();
         if ( drawLines ) {
@@ -138,6 +138,10 @@ void particleSystem::draw() {
             }
             ofEndShape();
         }
+        
+
+        col.a = particles[i]->alpha;
+        ofSetColor(col);
         
         ofFill();
         if ( drawCircles ) ofCircle(particles[i]->pos.x, particles[i]->pos.y, baseSize + particles[i]->vel.lengthSquared() * sizeMod);

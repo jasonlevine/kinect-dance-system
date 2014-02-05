@@ -6,7 +6,7 @@ particle::particle(){
 	setInitialCondition(0,0,0,0);
 	damping = 0.08f;
     size = 5.0 + ofRandomuf() * 2;
-    col = 0.0;
+    alpha = 0.0;
 }
 
 //------------------------------------------------------------
@@ -179,23 +179,22 @@ void particle::update(int tailLength){
     posHistory.push_back(pos);
     while (posHistory.size() > tailLength) posHistory.erase(posHistory.begin());
 //    col = ofMap(vel.lengthSquared(), 0, 225, 0, 255, true);
-    float newCol = ofMap(vel.lengthSquared(), 0, 100, 0, 255, true);
-    (newCol > col) ? col = newCol : col *= 0.95;
+    float newAlpha = ofMap(vel.lengthSquared(), 0, 100, 0, 255, true);
+    (newAlpha > alpha) ? alpha = newAlpha : alpha *= 0.95;
     
 }
 
 //------------------------------------------------------------
-void particle::draw(){
+void particle::draw(ofFloatColor col){
     ofPushStyle();
-//    ofSetColor(1.0, 0.9, 0.8, col);
+    ofSetColor(col.r, col.g, col.b, alpha);
     ofNoFill();
     ofSetLineWidth(size + vel.lengthSquared() * 0.001);
-    ofBeginShape();
-    for (int i = 0; i < posHistory.size(); i++) {
-        ofVertex(posHistory[i].x, posHistory[i].y);
-    }
-    ofEndShape();
-    
+//    ofBeginShape();
+//    for (int i = 0; i < posHistory.size(); i++) {
+//        ofVertex(posHistory[i].x, posHistory[i].y);
+//    }
+//    ofEndShape();
     
     ofFill();
     ofCircle(pos.x, pos.y, size + vel.lengthSquared() * 0.001);

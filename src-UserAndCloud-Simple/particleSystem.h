@@ -13,7 +13,7 @@ class particleSystem {
 public:
     void setup(int _maxParticles, float _width, float _height, bool _wrap, bool _bounce);
     void update(int mouseX, int mouseY);
-    void draw();
+    void draw(ofFloatColor col);
     
     void add(ofVec2f pos, ofVec2f vel);
     
