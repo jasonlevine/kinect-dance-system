@@ -18,7 +18,7 @@ void openNIManager::setup() {
     openNIDevice.addDepthGenerator();
     openNIDevice.setDepthColoring(COLORING_GREY);
     openNIDevice.setRegister(false);
-    openNIDevice.setMirror(true);
+    openNIDevice.setMirror(false);
     openNIDevice.addUserGenerator();
     openNIDevice.setMaxNumUsers(2);
 //    depthThresh.set(255, 70);
@@ -179,7 +179,7 @@ bool openNIManager::isSkeleton() {
 //--------------------------------------------------------------
 void openNIManager::keyPressed(int key){
     switch (key) {
-        case 'r':
+        case 'R':
         {
             int numUsers = openNIDevice.getNumTrackedUsers();
             

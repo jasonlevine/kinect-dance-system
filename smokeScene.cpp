@@ -80,7 +80,7 @@ void smokeScene::setup(openNIManager * _oni, flowManager * _flow ) {
     gui->addSlider("green", 0.0, 1.0, &particleColor.g, length-xInit, dim);
     gui->addSlider("blue", 0.0, 1.0, &particleColor.b, length-xInit, dim);
     
-gui->setDrawBack(false);
+    gui->setDrawBack(false);
     gui->setVisible(false);
 
 	

@@ -50,8 +50,6 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addSlider("linesWidth", 0.1, 10, &linesWidth, length-xInit, dim);
     gui->addSlider("linesLength", 1, 2000, &linesLength, length-xInit, dim);
     gui->addSlider("distanceScale", 0.1, 1.0, &distanceScale, length-xInit, dim);
-
-//    gui->addSlider("smoothing", 0.1, 0.99, &skeletonSmoothing, length-xInit, dim);
     gui->addSpacer(length-xInit, 1);
     gui->addLabelToggle("drawBody", &bDrawBody);
     gui->addLabelToggle("drawMoire", &bDrawMoire);
@@ -65,11 +63,6 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     gui->addLabelToggle("luLeg", &luLeg);
     gui->addLabelToggle("ruLeg", &ruLeg);
     gui->addSpacer(length-xInit, 1);
-//    gui->addLabel("BACKGROUND");
-//    gui->addSlider("red", 0.0, 1.0, &bgColor.r, length-xInit, dim);
-//    gui->addSlider("green", 0.0, 1.0, &bgColor.g, length-xInit, dim);
-//    gui->addSlider("blue", 0.0, 1.0, &bgColor.b, length-xInit, dim);
-//    gui->addSlider("alpha", 0.0, 1.0, &bgColor.a, length-xInit, dim);
     gui->addLabel("LINES");
     gui->addSlider("red", 0.0, 1.0, &lineColor.r, length-xInit, dim);
     gui->addSlider("green", 0.0, 1.0, &lineColor.g, length-xInit, dim);
@@ -78,18 +71,7 @@ void lineScene::setup(openNIManager * _oni, flowManager * _flow ){
     
     gui->setDrawBack(false);
     gui->setVisible(false);
-//    gui->toggleVisible();
-    
-//    gui->addSpacer(length-xInit, 1);
-//    gui->addLabelToggle("flip?", false);
-//    gui->addLabelToggle("dof", false);
-//    gui->addLabelToggle("bloom", false);
-//    gui->addLabelToggle("edges", false);
-//    gui->addLabelToggle("bloom2", false);
-//    gui->addSpacer(length-xInit, 1);
-//    gui->addSlider("brightness", 0.0, 10.0, &brightness, length-xInit, dim);
-//    gui->addSlider("contrast", 0.0, 5.0, &contrast, length-xInit, dim);
-//    gui->addLabelButton("reset bri/con", false);
+
 
     
 }

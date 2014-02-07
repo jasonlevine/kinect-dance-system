@@ -30,6 +30,8 @@ void testApp::setup() {
     currentScene = 2;
     numScenes = 4;
     
+    currentPreset = 0;
+    
     bDebug = false;
     bCalibrate = true;
     
@@ -43,6 +45,8 @@ void testApp::setup() {
     offset.set(0,0);
     
     setupGUI();
+    
+    brightness = contrast = 1.0;
 }
 
 //--------------------------------------------------------------
@@ -92,28 +96,29 @@ void testApp::keyPressed(int key){
     oni.keyPressed(key);
     
     switch (key) {
-        case 'd':
-        {
-            particleScene * myParticles = static_cast<particleScene*>(scenes[2]);
-            myParticles->bDebug = true;
-            break;
-        }
+//        case 'd':
+//        {
+//            particleScene * myParticles = static_cast<particleScene*>(scenes[2]);
+//            myParticles->bDebug = true;
+//            break;
+//        }
             
-        case 'c':
+        case 'C':
             bCalibrate = !bCalibrate;
             break;
             
-        case 'g':
+        case 'G':
             scenes[currentScene]->toggleGUI();
             break;
             
-        case 'G':
+        case 'H':
             gui->toggleVisible();
             gui2->toggleVisible();
+            gui3->toggleVisible();
             break;
 
             
-        case 's':
+        case 'S':
             scenes[currentScene]->hideGUI();
             currentScene++;
             currentScene%=numScenes;
@@ -145,16 +150,65 @@ void testApp::keyPressed(int key){
             scale+=0.1;
             break;
             
-        case 'p':
+        case 'P':
         {
-            string filename = "presets/" + ofGetTimestampString() + ".xml";
+            string timeStamp = ofGetTimestampString();
+            string filename = "presets/" + timeStamp + ".xml";
             gui->saveSettings(filename);
+            
+            string sceneFilename = filename + ".scene";
+            scenes[currentScene]->saveGUI(sceneFilename);
+            
+            ddl->addToggle(filename);
+            
+            
             break;
         }
             
-        case 'f':
+        case 'F':
             ofToggleFullscreen();
             break;
+            
+//        case 'w':
+//            ofSetWindowShape(1024*2, 768);
+//            break;
+            
+        
+        case 'X':
+        {
+            vector<ofxUILabelToggle *> &toggles = ddl->getToggles();
+            
+            currentPreset++;
+            currentPreset%=toggles.size();
+            
+            string presetName = toggles[currentPreset]->getName();
+            gui->loadSettings(presetName);
+            scenes[currentScene]->loadGUI(presetName + ".scene");
+            //reset bri/con
+            shared_ptr<ContrastPass> contrastPass = static_pointer_cast<ContrastPass>(ppm.renderPasses[4]);
+            contrastPass->setContrast( contrast );
+            contrastPass->setBrightness( brightness );
+            
+            break;
+        }
+            
+        case 'Z':
+        {
+            vector<ofxUILabelToggle *> &toggles = ddl->getToggles();
+            
+            if (currentPreset > 0) currentPreset--;
+            
+            string presetName = toggles[currentPreset]->getName();
+            gui->loadSettings(presetName);
+            scenes[currentScene]->loadGUI(presetName + ".scene");
+            //reset bri/con
+            shared_ptr<ContrastPass> contrastPass = static_pointer_cast<ContrastPass>(ppm.renderPasses[4]);
+            contrastPass->setContrast( contrast );
+            contrastPass->setBrightness( brightness );
+            
+            break;
+        }
+
 
     }
 }
@@ -169,10 +223,6 @@ void testApp::setupGUI(){
     gui = new ofxUICanvas(length+xInit, 0, length+xInit, ofGetHeight());
     
     gui->addFPSSlider("FPS SLIDER", length-xInit, dim*.25, 60);
-    gui->addSpacer(length-xInit, 1);
-    gui->addLabel("MAPPING");
-    gui->add2DPad("position", ofPoint(0,1920), ofPoint(0, 1080), &offset);
-    gui->addSlider("scale", 0.0, 5.0, &scale, length-xInit, dim);
     gui->addSpacer(length-xInit, 1);
     gui->addIntSlider("scene", 0, numScenes-1, &currentScene);
     gui->addLabel("BACKGROUND");
@@ -194,10 +244,19 @@ void testApp::setupGUI(){
     
     gui->setDrawBack(false);
     
-    gui2 = new ofxUICanvas(length * 2 + xInit + 2, 0, length+xInit, ofGetHeight());
     
-    gui2->addLabelButton("save preset", false);
+    gui2 = new ofxUICanvas(length * 2 + xInit + 2, 0, length+xInit, ofGetHeight());
+    gui2->addLabel("MAPPING");
+    gui2->add2DPad("position", ofPoint(0,1024), ofPoint(0, 768), &offset);
+    gui2->addSlider("scale", 0.0, 5.0, &scale, length-xInit, dim);
     gui2->setDrawBack(false);
+    
+    gui3 = new ofxUICanvas(length * 3 + xInit + 2, 0, length+xInit, ofGetHeight());
+    
+    gui3->addTextInput("TEXT INPUT", "Input Text", length-xInit)->setAutoClear(false);
+    gui3->addIntSlider("cue number", 1, 10, &cueNum);
+    gui3->addLabelButton("save preset", false);
+    gui3->setDrawBack(false);
     
     string path = "presets/";
     ofDirectory dir(path);
@@ -210,11 +269,11 @@ void testApp::setupGUI(){
         cout << dir.getPath(i) << endl;
     }
     
-    ddl = gui2->addDropDownList("presets", presets);
+    ddl = gui3->addDropDownList("presets", presets);
     ddl->setAllowMultiple(false);
     
     ofAddListener(gui->newGUIEvent,this,&testApp::guiEvent);
-    ofAddListener(gui2->newGUIEvent,this,&testApp::guiEvent);
+    ofAddListener(gui3->newGUIEvent,this,&testApp::guiEvent);
 }
 
 
@@ -273,33 +332,59 @@ void testApp::guiEvent(ofxUIEventArgs &e){
     else if (name == "save preset") {
         ofxUILabelButton *button = (ofxUILabelButton *) e.widget;
         if (button->getValue()) {
-            string timeStamp = ofGetTimestampString();
-            string filename = "presets/" + timeStamp + ".xml";
+//            string timeStamp = ofGetTimestampString();
+            string filename = "presets/" + presetName + ofToString(cueNum) + ".xml";
             gui->saveSettings(filename);
             
             string sceneFilename = filename + ".scene";
             scenes[currentScene]->saveGUI(sceneFilename);
             
             ddl->addToggle(filename);
+            cueNum++;
         }
     }
     else if(name == "presets")
     {
         ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
         vector<ofxUIWidget *> &selected = ddlist->getSelected();
-        for(int i = 0; i < selected.size(); i++)
+        vector<int> &indices = ddlist->getSelectedIndeces();
+        
+        if (selected.size() > 0)
         {
             string presetName = selected[0]->getName();
             gui->loadSettings(presetName);
             scenes[currentScene]->loadGUI(presetName + ".scene");
             //reset bri/con
             shared_ptr<ContrastPass> contrastPass = static_pointer_cast<ContrastPass>(ppm.renderPasses[4]);
-            contrastPass->setContrast( 1.0 );
-            contrastPass->setBrightness( 1.0 );
-            contrast = 1.0;
-            brightness = 1.0;
+            contrastPass->setContrast( contrast );
+            contrastPass->setBrightness( brightness );
+            
+            currentPreset = indices[0];
+//            contrast = 1.0;
+//            brightness = 1.0;
         }
     }
+    else if(name == "TEXT INPUT")
+    {
+        ofxUITextInput *textinput = (ofxUITextInput *) e.widget;
+//        if(textinput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER)
+//        {
+//            cout << "ON ENTER: ";
+//            //            ofUnregisterKeyEvents((testApp*)this);
+//        }
+//        else if(textinput->getTriggerType() == OFX_UI_TEXTINPUT_ON_FOCUS)
+//        {
+//            cout << "ON FOCUS: ";
+//        }
+//        else if(textinput->getTriggerType() == OFX_UI_TEXTINPUT_ON_UNFOCUS)
+//        {
+//            cout << "ON BLUR: ";
+//            //            ofRegisterKeyEvents(this);
+//        }
+        presetName = textinput->getTextString();
+        cout << presetName << endl;
+    }
+
 }
 
 

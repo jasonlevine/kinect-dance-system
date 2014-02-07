@@ -38,6 +38,7 @@ public:
     
     ofxUICanvas * gui;
     ofxUICanvas * gui2;
+    ofxUICanvas * gui3;
     ofxUIDropDownList *ddl;
     
     float brightness, contrast;
@@ -48,6 +49,10 @@ public:
     int currentScene;
     int numScenes;
     vector<scene*> scenes;
+    
+    int currentPreset;
+    string presetName;
+    int cueNum;
     
     ofFloatColor bgColor;
     bool bgColorChanged;

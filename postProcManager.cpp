@@ -9,8 +9,8 @@
 #include "postProcManager.h"
 
 void postProcManager::setup() {
-    width = 1920;
-    height = 1080;
+    width = 1024;
+    height = 768;
     ppWidth = ofNextPow2(width);
     ppHeight = ofNextPow2(height);
     
